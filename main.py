@@ -3,21 +3,45 @@ from tkinter import *
 import tkinter as tk
 
 
+def gauss_elimination():
+    print("Hello gaussElimination")
+
+
+def gauss_jordan():
+    print("Hello gaussJordan")
+
+
+def lu_decomposition():
+    print("Hello LU_Decomposition")
+
+
+def jacobi_iteration():
+    print("Hello JacobiIteration")
+
+
+def gauss_seidel():
+    print("Hello GaussSeidel")
+
+
 def done():
-    print("hello")
+    if methodType == "Gauss Elimination":
+        gauss_elimination()
+    elif methodType == "Gauss-Jordan":
+        gauss_jordan()
+    elif methodType == "LU-Decomposition":
+        lu_decomposition()
+    elif methodType == "Jacobi Iteration":
+        jacobi_iteration()
+    elif methodType == "Gauss-Seidel":
+        gauss_seidel()
 
 
-def submit():
+def get_coeff():
     try:
         global n
         n = int(e.get())
     except ValueError:
         label = Label(root, text="You're supposed to enter a number, Try again")
-        label.grid(row=1, column=0, columnspan=3)
-        label.after(1000, lambda: label.destroy())
-        return
-    if n < 2:
-        label = Label(root, text="At least two variables are required!")
         label.grid(row=1, column=0, columnspan=3)
         label.after(1000, lambda: label.destroy())
         return
@@ -60,6 +84,57 @@ def submit():
     row += 1
 
 
+def get_parm():
+    try:
+        global n
+        n = int(e.get())
+    except ValueError:
+        label = Label(root, text="You're supposed to enter a number, Try again")
+        label.grid(row=1, column=0, columnspan=3)
+        label.after(1000, lambda: label.destroy())
+        return
+    if n < 2:
+        label = Label(root, text="At least two variables are required!")
+        label.grid(row=1, column=0, columnspan=3)
+        label.after(1000, lambda: label.destroy())
+        return
+    try:
+        global methodType
+        methodType = (combo.get())
+    except ValueError:
+        label = Label(root, text="Choose a method")
+        label.grid(row=3, column=0, columnspan=3)
+        label.after(1000, lambda: label.destroy())
+        return
+    my_label.grid_forget()
+    my_button.grid_forget()
+    combo.grid_forget()
+    label_combo.grid_forget()
+    e.grid_forget()
+    try:
+        if methodType == "LU-Decomposition":
+            global label_combo2, combo2 , LUType
+            if combo.get() == "LU-Decomposition":
+                label_combo2 = tk.Label(root, text='Choose an LU:')
+                label_combo2.grid(row=4, column=0, pady=10, sticky='nsew')
+                combo2 = ttk.Combobox(
+                    state="readonly",
+                    values=["Doolittle", "Crout", "Cholesky"]
+                )
+                combo2.grid(row=5, column=0, pady=10, sticky='nsew')
+                global parm_button
+                parm_button = Button(root, text='SubmitParm', command=get_coeff)
+                parm_button.grid(row=6, column=0)
+        else:
+            get_coeff()
+    except ValueError:
+        label = Label(root, text="Choose an LU method")
+        label.grid(row=5, column=0, columnspan=3)
+        label.after(1000, lambda: label.destroy())
+        return
+
+
+
 root = tk.Tk()
 root.resizable(width=False, height=False)
 root.title('Numerical Project')
@@ -79,13 +154,14 @@ my_label = tk.Label(root, text='How many variables?')
 my_label.grid(row=0, column=0, pady=10, sticky='nsew')
 e = tk.Entry(root, width=10, borderwidth=5)
 e.grid(row=1, column=0, pady=10, sticky='nsew')
-label_combo = tk.Label(root, text='Choose a language:')
+label_combo = tk.Label(root, text='Choose a method:')
 label_combo.grid(row=2, column=0, pady=10, sticky='nsew')
 combo = ttk.Combobox(
     state="readonly",
     values=["Gauss Elimination", "Gauss-Jordan", "LU-Decomposition", "Jacobi Iteration", "Gauss-Seidel"]
 )
 combo.grid(row=3, column=0, pady=10, sticky='nsew')
-my_button = tk.Button(root, text='Submit', command=submit)
-my_button.grid(row=4, column=0, pady=10, sticky='nsew')
+
+my_button = tk.Button(root, text='SubmitFirst', command=get_parm)
+my_button.grid(row=6, column=0, pady=10, sticky='nsew')
 root.mainloop()
