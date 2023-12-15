@@ -11,16 +11,26 @@ def gauss_jordan():
     print("Hello gaussJordan")
 
 
-def lu_decomposition():
-    print("Hello LU_Decomposition")
+def cholesky():
+    print("Hello Cholesky")
+
+
+def doolittle():
+    print("Hello doolittle")
+
+
+def crout():
+    print("Hello crout")
 
 
 def jacobi_iteration():
     print("Hello JacobiIteration")
+    print(Initials)
 
 
 def gauss_seidel():
     print("Hello GaussSeidel")
+    print(Initials)
 
 
 def done():
@@ -29,7 +39,12 @@ def done():
     elif methodType == "Gauss-Jordan":
         gauss_jordan()
     elif methodType == "LU-Decomposition":
-        lu_decomposition()
+        if LUType == "Cholesky":
+            cholesky()
+        elif LUType == "Crout":
+            crout()
+        elif LUType == "Doolittle":
+            doolittle()
     elif methodType == "Jacobi Iteration":
         jacobi_iteration()
     elif methodType == "Gauss-Seidel":
@@ -37,6 +52,24 @@ def done():
 
 
 def get_coeff():
+    try:
+        if methodType == "LU-Decomposition":
+            global LUType
+            LUType = (combo2.get())
+            combo2.grid_forget()
+            label_combo2.grid_forget()
+            parm_button.grid_forget()
+        elif methodType == "Jacobi Iteration" or methodType == "Gauss-Seidel":
+            global InitialTextBox, labelInitial, Initials
+            Initials = (InitialTextBox.get())
+            InitialTextBox.grid_forget()
+            labelInitial.grid_forget()
+            parm_button.grid_forget()
+    except ValueError:
+        label = Label(root, text="Enter Parameters")
+        label.grid(row=1, column=0, columnspan=3)
+        label.after(1000, lambda: label.destroy())
+        return
     try:
         global n
         n = int(e.get())
@@ -113,7 +146,7 @@ def get_parm():
     e.grid_forget()
     try:
         if methodType == "LU-Decomposition":
-            global label_combo2, combo2 , LUType
+            global label_combo2, combo2, LUType
             if combo.get() == "LU-Decomposition":
                 label_combo2 = tk.Label(root, text='Choose an LU:')
                 label_combo2.grid(row=4, column=0, pady=10, sticky='nsew')
@@ -125,6 +158,14 @@ def get_parm():
                 global parm_button
                 parm_button = Button(root, text='SubmitParm', command=get_coeff)
                 parm_button.grid(row=6, column=0)
+        elif methodType == "Jacobi Iteration" or methodType == "Gauss-Seidel":
+            global InitialTextBox, labelInitial, Initials
+            labelInitial = tk.Label(root, text='Choose initials separated by commas:')
+            labelInitial.grid(row=4, column=0, pady=10, sticky='nsew')
+            InitialTextBox = tk.Entry(root, width=10, borderwidth=5)
+            InitialTextBox.grid(row=5, column=0, pady=10, sticky='nsew')
+            parm_button = Button(root, text='SubmitParm', command=get_coeff)
+            parm_button.grid(row=6, column=0)
         else:
             get_coeff()
     except ValueError:
@@ -132,7 +173,6 @@ def get_parm():
         label.grid(row=5, column=0, columnspan=3)
         label.after(1000, lambda: label.destroy())
         return
-
 
 
 root = tk.Tk()
