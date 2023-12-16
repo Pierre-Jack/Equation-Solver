@@ -1,6 +1,7 @@
 from tkinter import ttk
 from tkinter import *
 import tkinter as tk
+import numpy as np
 
 
 def gauss_elimination():
@@ -12,7 +13,29 @@ def gauss_jordan():
 
 
 def cholesky():
+    import src.LU_Decomposition as lu
+    global row, n
+    try:
+        A = []
+        S = []
+        for record in entries:
+            A.append([])
+            for i in range(0, len(record)-1):
+                entry = record[i].get()
+                if entry:
+                    A[-1].append(int(entry))
+                else:
+                    A[-1].append(0)
+            entry = record[-1].get()
+            S.append([int(entry)])
+    except ValueError:
+        new_label = Label(root, text='Invalid. Try again!')
+        new_label.grid(row=row, columnspan=n * 3, sticky='W')
+        new_label.after(1000, lambda: new_label.destroy())
+        return
     print("Hello Cholesky")
+    significant_figs = 5
+    l,u = lu.cholesky_lu(A,significant_figs)
 
 
 def doolittle():
