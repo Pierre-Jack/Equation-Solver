@@ -23,11 +23,11 @@ def cholesky():
             for i in range(0, len(record)-1):
                 entry = record[i].get()
                 if entry:
-                    A[-1].append(int(entry))
+                    A[-1].append(float(entry))
                 else:
                     A[-1].append(0)
             entry = record[-1].get()
-            S.append([int(entry)])
+            S.append([float(entry)])
     except ValueError:
         new_label = Label(root, text='Invalid. Try again!')
         new_label.grid(row=row, columnspan=n * 3, sticky='W')
@@ -35,7 +35,16 @@ def cholesky():
         return
     print("Hello Cholesky")
     significant_figs = 5
-    l,u = lu.cholesky_lu(A,significant_figs)
+    if(lu.check_if_valid_for_cholesky(A)):
+        l,u = lu.cholesky_lu(A,significant_figs)
+        x = lu.solve_lu(l, u, S, significant_figs)
+    else:
+        x= "A is not symmetric positive definite, therefore Cholesky's method cannot be applied to it"
+    print(x)
+
+
+
+    
 
 
 def doolittle():

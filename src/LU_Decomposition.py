@@ -71,6 +71,7 @@ def crout_lu(a, sig_figs):
 
 
 def check_if_valid_for_cholesky(a):
+    a = np.array(a)
     if not np.array_equal(a, a.transpose()):
         return False
     elif not a.shape[0] == a.shape[1]:
@@ -118,7 +119,7 @@ def solve_lu(l, u, b, sig_figs):
     for i in range(x.shape[0]):
         x[i][0] = round(x[i][0], -int(math.floor(math.log10(abs(x[i][0])))) + (sig_figs - 1))
 
-    print(x)
+    return x
 
 
 # a = np.array([[4, 12, -16],
