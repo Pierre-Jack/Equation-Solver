@@ -2,6 +2,8 @@ from tkinter import ttk
 from tkinter import *
 import tkinter as tk
 import numpy as np
+from numpy import linalg as LA
+import math
 
 
 def gauss_elimination():
@@ -12,8 +14,48 @@ def gauss_jordan():
     print("Hello gaussJordan")
 
 
-def cholesky():
+def cholesky(A, S):
+    global nSignificant
     import src.LU_Decomposition as lu
+    if(lu.check_if_valid_for_cholesky(A)):
+        l,u = lu.cholesky_lu(A, int(nSignificant))
+        x = lu.solve_lu(l, u, S, int(nSignificant))
+    else:
+        x= "A is not symmetric positive definite, therefore Cholesky's method cannot be applied to it"
+    print(x)
+
+
+def doolittle(A, S):
+    global nSignificant
+    import src.LU_Decomposition as lu
+    l, u = lu.doolittle_lu(A, int(nSignificant))
+    x= lu.solve_lu(l, u, S, int(nSignificant))
+    print(x)
+
+
+def crout(A, S):
+    global nSignificant
+    import src.LU_Decomposition as lu
+    l, u = lu.doolittle_lu(A, int(nSignificant))
+    x= lu.solve_lu(l, u, S, int(nSignificant))
+    print(x)
+
+
+def jacobi_iteration():
+    import src.JacobiSeidel
+    global nSignificant
+    initialValue = list(map(int, Initials.split(",")))
+    initialGuess = [[i] for i in initialValue]
+    print("Hello JacobiIteration")
+    print(initialGuess)
+
+
+def gauss_seidel():
+    print("Hello GaussSeidel")
+    print(Initials)
+
+
+def done():
     global row, n
     try:
         A = []
@@ -33,50 +75,24 @@ def cholesky():
         new_label.grid(row=row, columnspan=n * 3, sticky='W')
         new_label.after(1000, lambda: new_label.destroy())
         return
-    print("Hello Cholesky")
-    significant_figs = 5
-    if(lu.check_if_valid_for_cholesky(A)):
-        l,u = lu.cholesky_lu(A,significant_figs)
-        x = lu.solve_lu(l, u, S, significant_figs)
-    else:
-        x= "A is not symmetric positive definite, therefore Cholesky's method cannot be applied to it"
-    print(x)
-
-
-
+    a_np = np.array(A)
+    s_np= np.array(S)
     
-
-
-def doolittle():
-    print("Hello doolittle")
-
-
-def crout():
-    print("Hello crout")
-
-
-def jacobi_iteration():
-    print("Hello JacobiIteration")
-    print(Initials)
-
-
-def gauss_seidel():
-    print("Hello GaussSeidel")
-    print(Initials)
-
-
-def done():
+    if abs(LA.det(a_np)) < 1e-8:
+        x = "Matrix is singular"
+        return
+    
     if methodType == "Gauss Elimination":
         gauss_elimination()
     elif methodType == "Gauss-Jordan":
         gauss_jordan()
     elif methodType == "LU-Decomposition":
         if LUType == "Cholesky":
-            cholesky()
+            cholesky(a_np, s_np)
         elif LUType == "Crout":
-            crout()
+            crout(a_np, s_np)
         elif LUType == "Doolittle":
-            doolittle()
+            doolittle(a_np, s_np)
     elif methodType == "Jacobi Iteration":
         jacobi_iteration()
     elif methodType == "Gauss-Seidel":
@@ -85,6 +101,10 @@ def done():
 
 def get_coeff():
     try:
+        global nSignificant
+        nSignificant = (sig_fig.get())
+        sig_fig.grid_forget()
+        label_sig_fig.grid_forget()
         if methodType == "LU-Decomposition":
             global LUType
             LUType = (combo2.get())
@@ -176,6 +196,12 @@ def get_parm():
     combo.grid_forget()
     label_combo.grid_forget()
     e.grid_forget()
+    global label_sig_fig
+    label_sig_fig = tk.Label(root, text='Enter number of Significant Figures')
+    label_sig_fig.grid(row=2, column=0, pady=10, sticky='nsew')
+    global sig_fig
+    sig_fig = tk.Entry(root, width=10, borderwidth=5)
+    sig_fig.grid(row=3, column=0, pady=10, sticky='nsew')
     try:
         if methodType == "LU-Decomposition":
             global label_combo2, combo2, LUType
