@@ -6,8 +6,8 @@ import math
 # coefficient = np.array([[12., 3., -5.], [1., 5., 3.], [3., 7., 13.]])
 # b = np.array([1., 28., 76.])
 
-coefficient = np.array([[0., -2., 3.], [2., 0., -2.], [-7., 3., 0.]])
-b = np.array([10., 11., 3.])
+# coefficient = np.array([[0., -2., 3.], [2., 0., -2.], [-7., 3., 0.]])
+# b = np.array([10., 11., 3.])
 
 # coefficient = np.array([[4., 2., 1.], [-1., 2., 0.], [2., 1., 4.]])
 # b = np.array([11., 3., 16.])
@@ -18,11 +18,11 @@ b = np.array([10., 11., 3.])
 #???????? coefficient = np.array([[1., -3., 2., 1.], [-2., -6., 1., 4.], [-1., 2., 3., 4.], [0., -1., 1., 1.]])
 # b = np.array([-4., 1., 12., 0.])
 
-numOfVar = 3
-initialGuess = np.array([0., 0., 0.])
-numOfIterations = 100000
-absolute_relative_error = 0.05
-significant_figures = 7
+# numOfVar = 3
+# initialGuess = np.array([0., 0., 0.])
+# numOfIterations = 100000
+# absolute_relative_error = 0.05
+# significant_figures = 7
 
 def check_zero(coefficient):
     if(np.any(np.diag(coefficient) == 0)):
@@ -37,7 +37,10 @@ def avoid_zero_on_diagonal(coefficient, b, numOfVar):
             continue
         for j in range(numOfVar):
             if coefficient[j][i] != 0:
-                coefficient[[i, j]] = coefficient[[j, i]]
+                temp = coefficient[i]
+                coefficient[i]= coefficient[j]
+                coefficient[j]= temp
+                # coefficient[[i, j]] = coefficient[[j, i]]
                 b[i], b[j] = b[j], b[i]
                 break
         if(not check_zero(coefficient)):
@@ -121,8 +124,8 @@ def seidel(coefficient, b, initialGuess, numOfIterations, absolute_relative_erro
         print('Cannot be solved')
 
 
-jacobi(coefficient, b, initialGuess, numOfIterations, absolute_relative_error, significant_figures)
-seidel(coefficient, b, initialGuess, numOfIterations, absolute_relative_error, numOfVar, significant_figures)
+# jacobi(coefficient, b, initialGuess, numOfIterations, absolute_relative_error, significant_figures)
+# seidel(coefficient, b, initialGuess, numOfIterations, absolute_relative_error, numOfVar, significant_figures)
 
 
 

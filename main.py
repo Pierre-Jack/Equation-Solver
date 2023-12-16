@@ -4,6 +4,7 @@ import tkinter as tk
 import numpy as np
 from numpy import linalg as LA
 import math
+import itertools
 
 
 def gauss_elimination():
@@ -41,18 +42,24 @@ def crout(A, S):
     print(x)
 
 
-def jacobi_iteration():
-    import src.JacobiSeidel
+def jacobi_iteration(A, S):
+    import src.JacobiSeidel as JM
     global nSignificant
-    initialValue = list(map(int, Initials.split(",")))
-    initialGuess = [[i] for i in initialValue]
+    B= list(itertools.chain(*S))
+    initialGuess = list(map(int, Initials.split(",")))
     print("Hello JacobiIteration")
-    print(initialGuess)
+    x= JM.jacobi(A, B, initialGuess, 10000, 0.05 ,int(nSignificant))
+    print(x)
 
 
-def gauss_seidel():
-    print("Hello GaussSeidel")
-    print(Initials)
+def gauss_seidel(A, S):
+    import src.JacobiSeidel as GS
+    global nSignificant
+    B= list(itertools.chain(*S))
+    initialGuess = list(map(int, Initials.split(",")))
+    print("Hello SeidelIteration")
+    x= GS.jacobi(A, B, initialGuess, 10000, 0.05 ,int(nSignificant))
+    print(x)
 
 
 def done():
@@ -85,7 +92,7 @@ def done():
     if methodType == "Gauss Elimination":
         gauss_elimination()
     elif methodType == "Gauss-Jordan":
-        gauss_jordan()
+        gauss_jordan(A, S)
     elif methodType == "LU-Decomposition":
         if LUType == "Cholesky":
             cholesky(a_np, s_np)
@@ -94,9 +101,9 @@ def done():
         elif LUType == "Doolittle":
             doolittle(a_np, s_np)
     elif methodType == "Jacobi Iteration":
-        jacobi_iteration()
+        jacobi_iteration(A, S)
     elif methodType == "Gauss-Seidel":
-        gauss_seidel()
+        gauss_seidel(A, S)
 
 
 def get_coeff():
