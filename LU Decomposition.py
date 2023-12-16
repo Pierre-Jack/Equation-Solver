@@ -2,17 +2,6 @@ import numpy as np
 import math
 from numpy import linalg as LA
 
-
-# def mult_matrix(M, N):
-#     """Multiply square matrices of same dimension M and N"""
-
-#     # Converts N into a list of tuples of columns                                                                                                                                                                                                      
-#     tuple_N = zip(*N)
-
-#     # Nested list comprehension to calculate matrix multiplication                                                                                                                                                                                     
-#     return [[sum(el_m * el_n for el_m, el_n in zip(row_m, col_n)) for col_n in tuple_N] for row_m in M]
-#round(x, -int(math.floor(math.log10(abs(x)))) + (sig_figs - 1))
-
 def doolittle_lu(a, sig_figs):
     n= np.shape(a)[0]
     
@@ -33,32 +22,6 @@ def doolittle_lu(a, sig_figs):
             l[i][j] = (a[i][j] - temp) / u[j][j]
             l[i][j] = round(l[i][j], -int(math.floor(math.log10(abs(l[i][j])))) + (sig_figs - 1))
 
-    
-    # for i in range(m):
-    #     for j in range(n):
-    #         if i == j:
-    #             l[i][j] = 1
-
-    # for i in range(m):
-    #     for j in range(n):
-    #         if j >= i:
-    #             temp = 0
-    #             for k in range(1, i):
-    #                 temp += u[k][j]*l[i][k]
-    #             u[i][j] = a[i][j] - temp
-
-    # for i in range(m):
-    #     for j in range(n):
-    #         if j < i:
-    #             temp = 0
-    #             for k in range(1, j):
-    #                 temp += u[k][j]*l[i][k]
-    #             l[i][j] = (a[i][j] - temp) / u[j][j]
-
-
-    # print("L:\n", l)
-    # print("U:\n", u)
-
     return l, u
 
 def crout_lu(a, sig_figs):
@@ -66,6 +29,7 @@ def crout_lu(a, sig_figs):
     
     l = np.zeros((n, n))
     u = np.eye(n)
+    
     # l= np.zeros((m, n))
     # u= np.zeros((m, n))
 
@@ -103,29 +67,6 @@ def crout_lu(a, sig_figs):
     l[n-1][n-1] = a[n-1][n-1] - sum(l[n-1][k]*u[k][n-1] for k in range(n))
     l[n-1][n-1] = round(l[n-1][n-1], -int(math.floor(math.log10(abs(l[n-1][n-1])))) + (sig_figs - 1))
 
-    # for i in range(m):
-    #     for j in range(n):
-    #         if i == j:
-    #             u[i][j] = 1
-
-    # for i in range(m):
-    #     for j in range(n):
-    #         if i >= j:
-    #             temp = 0
-    #             for k in range(1, i):
-    #                 temp += u[k][j]*l[i][k]
-    #             l[i][j] = a[i][j] - temp
-
-    # for i in range(m):
-    #     for j in range(n):
-    #         if i < j:
-    #             temp = 0
-    #             for k in range(1, j):
-    #                 temp += u[k][j]*l[i][k]
-    #             u[i][j] = (a[i][j] - temp) / l[j][j]
-    print("L:\n", l)
-    print("U:\n", u)
-
     return l, u
 
 def check_if_valid_for_cholesky(a):
@@ -160,14 +101,9 @@ def cholesky_lu(a, sig_figs):
 
                 if(l[j][j] > 0):
                     l[i][j] = int((a[i][j] - temp) / l[j][j])
-                    l[i][j] = round(l[i][j], -int(math.floor(math.log10(abs(l[i][j])))) + (sig_figs - 1))
-
-    
+                    l[i][j] = round(l[i][j], -int(math.floor(math.log10(abs(l[i][j])))) + (sig_figs - 1))   
     u = l.transpose()
-    
-    # print("L:\n", l)
-    # print("U:\n", u)
-
+ 
     return l, u
 
 def solve_lu(l, u, b, sig_figs):
@@ -209,9 +145,3 @@ elif method == "Cholesky":
         print("A is not symmetric positive definite, therefore Cholesky's method cannot be applied to it")
 
 solve_lu(l, u, b, 5)
-
-
-
-
-
-    
