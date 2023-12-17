@@ -4,6 +4,7 @@ import tkinter as tk
 import numpy as np
 from numpy import linalg as LA
 import itertools
+import time
 
 
 def gauss_elimination():
@@ -15,19 +16,20 @@ def gauss_jordan():
 
 
 def cholesky(A, S):
-    time_taken = 1
     global nSignificant, row
     import src.LU_Decomposition as lu
     row = 0
     for widget in root.winfo_children():
         widget.destroy()
     if lu.check_if_valid_for_cholesky(A):
+        start_time = time.time()
         l, u = lu.cholesky_lu(A, int(nSignificant))
         x = lu.solve_lu(l, u, S, int(nSignificant))
+        end_time = time.time()
+        time_taken = round(end_time - start_time, 5)
     else:
         x = "A is not symmetric positive definite, therefore Cholesky's method cannot be applied to it"
         print(x)
-        row += 1
         new_label = Label(root, text=x)
         new_label.grid(row=row, columnspan=5, sticky='W')
         return
@@ -40,13 +42,15 @@ def cholesky(A, S):
 
 
 def doolittle(A, S):
-    time_taken = 1
     for widget in root.winfo_children():
         widget.destroy()
     global nSignificant
     import src.LU_Decomposition as lu
+    start_time = time.time()
     l, u = lu.doolittle_lu(A, int(nSignificant))
     x = lu.solve_lu(l, u, S, int(nSignificant))
+    end_time = time.time()
+    time_taken = round(end_time - start_time, 5)
     global row
     row = 0
     for i in range(n):
@@ -59,11 +63,13 @@ def doolittle(A, S):
 
 
 def crout(A, S):
-    time_taken = 1
     global nSignificant
     import src.LU_Decomposition as lu
+    start_time = time.time()
     l, u = lu.doolittle_lu(A, int(nSignificant))
     x = lu.solve_lu(l, u, S, int(nSignificant))
+    end_time = time.time()
+    time_taken = round(end_time - start_time, 5)
     for widget in root.winfo_children():
         widget.destroy()
     global row
@@ -78,19 +84,26 @@ def crout(A, S):
 
 
 def jacobi_iteration(A, S):
-    time_taken = 1
     import src.JacobiSeidel as JM
     global nSignificant, iterations, relative_error
     B = list(itertools.chain(*S))
     initialGuess = list(map(int, Initials.split(",")))
-
-    x = JM.jacobi(A, B, initialGuess, iterations, relative_error, int(nSignificant))
+    start_time = time.time()
+    x = JM.jacobi(A, B, initialGuess, int(iterations), int(relative_error), int(nSignificant))
+    end_time = time.time()
+    time_taken = round(end_time - start_time, 5)
     for widget in root.winfo_children():
         widget.destroy()
     global row
     row = 0
+    if isinstance(x, str):
+        x = "Cannot Converge"
+        print(x)
+        new_label = Label(root, text=x)
+        new_label.grid(row=row, columnspan=5, sticky='W')
+        return
     for i in range(n):
-        new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i][0]))
+        new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i]))
         new_label.grid(row=row, columnspan=2, sticky='W')
         row += 1
     new_label = Label(root, text="time taken: " + str(time_taken) + " sec.")
@@ -99,19 +112,20 @@ def jacobi_iteration(A, S):
 
 
 def gauss_seidel(A, S):
-    time_taken = 1
     import src.JacobiSeidel as GS
     global nSignificant, iterations, relative_error
     B = list(itertools.chain(*S))
     initialGuess = list(map(int, Initials.split(",")))
-
-    x = GS.jacobi(A, B, initialGuess, iterations, relative_error, int(nSignificant))
+    start_time = time.time()
+    x = GS.jacobi(A, B, initialGuess, int(iterations), int(relative_error), int(nSignificant))
+    end_time = time.time()
+    time_taken = end_time - start_time
     for widget in root.winfo_children():
         widget.destroy()
     global row
     row = 0
     for i in range(n):
-        new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i][0]))
+        new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i]))
         new_label.grid(row=row, columnspan=2, sticky='W')
         row += 1
     new_label = Label(root, text="time taken: " + str(time_taken) + " sec.")
@@ -143,7 +157,19 @@ def done():
     s_np = np.array(S)
 
     if abs(LA.det(a_np)) < 1e-8:
+        screen_width = root.winfo_screenwidth()
+        screen_height = root.winfo_screenheight()
+        x_position = (screen_width - 400) // 2
+        y_position = (screen_height - 300) // 2
+        root.geometry(f'+{x_position}+{y_position}')
+        root.columnconfigure(0, weight=1)
         x = "Matrix is singular"
+        for widget in root.winfo_children():
+            widget.destroy()
+        print(x)
+        row = 0
+        new_label = Label(root, text=x)
+        new_label.grid(row=row, column=0, sticky='W')
         return
 
     if methodType == "Gauss Elimination":

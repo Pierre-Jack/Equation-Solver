@@ -42,7 +42,6 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
     "git-widget-placeholder": "main",
     "last_opened_file_path": "C:/Users/Armia/Documents/GitHub/Equation-Solver",
     "node.js.detected.package.eslint": "true",
@@ -118,7 +117,7 @@
       <workItem from="1702748104236" duration="80000" />
       <workItem from="1702807212372" duration="19000" />
       <workItem from="1702807241123" duration="12000" />
-      <workItem from="1702807278366" duration="5302000" />
+      <workItem from="1702807278366" duration="7162000" />
     </task>
     <servers />
   </component>
@@ -126,7 +125,7 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Equation_Solver$main.coverage" NAME="main Coverage Results" MODIFIED="1702812567394" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Equation_Solver$main.coverage" NAME="main Coverage Results" MODIFIED="1702814270580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Equation_Solver$GaussianSolver.coverage" NAME="GaussianSolver Coverage Results" MODIFIED="1702660923398" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>
