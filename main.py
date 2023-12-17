@@ -15,6 +15,7 @@ def gauss_jordan():
 
 
 def cholesky(A, S):
+    time_taken = 1
     global nSignificant
     import src.LU_Decomposition as lu
     if lu.check_if_valid_for_cholesky(A):
@@ -22,43 +23,101 @@ def cholesky(A, S):
         x = lu.solve_lu(l, u, S, int(nSignificant))
     else:
         x= "A is not symmetric positive definite, therefore Cholesky's method cannot be applied to it"
-
+    for record in entries:
+        for entry in record:
+            entry['state'] = DISABLED
+    new_button['state'] = DISABLED
+    global row
+    for i in range(n):
+        new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i][0]))
+        new_label.grid(row=row, columnspan=2, sticky='W')
+        row += 1
+    new_label = Label(root, text="time taken: " + str(time_taken) + " sec.")
+    new_label.grid(row=row, columnspan=2, sticky='W')
     print(x)
 
 
 def doolittle(A, S):
+    time_taken = 1
     global nSignificant
     import src.LU_Decomposition as lu
     l, u = lu.doolittle_lu(A, int(nSignificant))
-    x= lu.solve_lu(l, u, S, int(nSignificant))
+    x = lu.solve_lu(l, u, S, int(nSignificant))
+    for record in entries:
+        for entry in record:
+            entry['state'] = DISABLED
+    new_button['state'] = DISABLED
+    global row
+    for i in range(n):
+        new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i][0]))
+        new_label.grid(row=row, columnspan=2, sticky='W')
+        row += 1
+    new_label = Label(root, text="time taken: " + str(time_taken) + " sec.")
+    new_label.grid(row=row, columnspan=2, sticky='W')
     print(x)
 
 
 def crout(A, S):
+    time_taken = 1
     global nSignificant
     import src.LU_Decomposition as lu
     l, u = lu.doolittle_lu(A, int(nSignificant))
-    x= lu.solve_lu(l, u, S, int(nSignificant))
+    x = lu.solve_lu(l, u, S, int(nSignificant))
+    for record in entries:
+        for entry in record:
+            entry['state'] = DISABLED
+    new_button['state'] = DISABLED
+    global row
+    for i in range(n):
+        new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i][0]))
+        new_label.grid(row=row, columnspan=2, sticky='W')
+        row += 1
+    new_label = Label(root, text="time taken: " + str(time_taken) + " sec.")
+    new_label.grid(row=row, columnspan=2, sticky='W')
     print(x)
 
 
 def jacobi_iteration(A, S):
+    time_taken = 1
     import src.JacobiSeidel as JM
-    global nSignificant
+    global nSignificant, iterations, relative_error
     B= list(itertools.chain(*S))
     initialGuess = list(map(int, Initials.split(",")))
-    print("Hello JacobiIteration")
-    x= JM.jacobi(A, B, initialGuess, 20, 0.05 ,int(nSignificant))
+
+    x = JM.jacobi(A, B, initialGuess, iterations, relative_error, int(nSignificant))
+    for record in entries:
+        for entry in record:
+            entry['state'] = DISABLED
+    new_button['state'] = DISABLED
+    global row
+    for i in range(n):
+        new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i][0]))
+        new_label.grid(row=row, columnspan=2, sticky='W')
+        row += 1
+    new_label = Label(root, text="time taken: " + str(time_taken) + " sec.")
+    new_label.grid(row=row, columnspan=2, sticky='W')
     print(x)
 
 
 def gauss_seidel(A, S):
+    time_taken = 1
     import src.JacobiSeidel as GS
-    global nSignificant
+    global nSignificant, iterations, relative_error
     B= list(itertools.chain(*S))
     initialGuess = list(map(int, Initials.split(",")))
-    print("Hello SeidelIteration")
-    x= GS.jacobi(A, B, initialGuess, 10000, 0.05 ,int(nSignificant))
+
+    x = GS.jacobi(A, B, initialGuess, iterations, relative_error ,int(nSignificant))
+    for record in entries:
+        for entry in record:
+            entry['state'] = DISABLED
+    new_button['state'] = DISABLED
+    global row
+    for i in range(n):
+        new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i][0]))
+        new_label.grid(row=row, columnspan=2, sticky='W')
+        row += 1
+    new_label = Label(root, text="time taken: " + str(time_taken) + " sec.")
+    new_label.grid(row=row, columnspan=2, sticky='W')
     print(x)
 
 
@@ -119,13 +178,19 @@ def get_coeff():
             label_combo2.grid_forget()
             parm_button.grid_forget()
         elif methodType == "Jacobi Iteration" or methodType == "Gauss-Seidel":
-            global InitialTextBox, labelInitial, Initials
+            global InitialTextBox, labelInitial, Initials, N_Iterations, N_IterationsLabel, Relative_error, Relative_errorLabel, iterations, relative_error
             Initials = (InitialTextBox.get())
+            iterations = int(N_Iterations.get())
+            relative_error = float(Relative_error.get())
             InitialTextBox.grid_forget()
             labelInitial.grid_forget()
+            N_Iterations.grid_forget()
+            N_IterationsLabel.grid_forget()
+            Relative_error.grid_forget()
+            Relative_errorLabel.grid_forget()
             parm_button.grid_forget()
     except ValueError:
-        label = Label(root, text="Enter Parameters")
+        label = Label(root, text="Invalid Input")
         label.grid(row=1, column=0, columnspan=3)
         label.after(1000, lambda: label.destroy())
         return
@@ -224,13 +289,24 @@ def get_parm():
                 parm_button = Button(root, text='SubmitParm', command=get_coeff)
                 parm_button.grid(row=6, column=0)
         elif methodType == "Jacobi Iteration" or methodType == "Gauss-Seidel":
-            global InitialTextBox, labelInitial, Initials
+            global InitialTextBox, labelInitial, Initials, N_Iterations, N_IterationsLabel, Relative_error, Relative_errorLabel
             labelInitial = tk.Label(root, text='Choose initials separated by commas:')
             labelInitial.grid(row=4, column=0, pady=10, sticky='nsew')
             InitialTextBox = tk.Entry(root, width=10, borderwidth=5)
             InitialTextBox.grid(row=5, column=0, pady=10, sticky='nsew')
+
+            N_IterationsLabel = tk.Label(root, text='Maximum number of Iterations:')
+            N_IterationsLabel.grid(row=6, column=0, pady=10, sticky='nsew')
+            N_Iterations = tk.Entry(root, width=10, borderwidth=5)
+            N_Iterations.grid(row=7, column=0, pady=10, sticky='nsew')
+
+            Relative_errorLabel = tk.Label(root, text='Relative Error:')
+            Relative_errorLabel.grid(row=8, column=0, pady=10, sticky='nsew')
+            Relative_error = tk.Entry(root, width=10, borderwidth=5)
+            Relative_error.grid(row=9, column=0, pady=10, sticky='nsew')
+
             parm_button = Button(root, text='SubmitParm', command=get_coeff)
-            parm_button.grid(row=6, column=0)
+            parm_button.grid(row=10, column=0)
         else:
             get_coeff()
     except ValueError:
