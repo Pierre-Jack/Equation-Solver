@@ -16,38 +16,39 @@ def gauss_jordan():
 
 def cholesky(A, S):
     time_taken = 1
-    global nSignificant
+    global nSignificant, row
     import src.LU_Decomposition as lu
+    row = 0
+    for widget in root.winfo_children():
+        widget.destroy()
     if lu.check_if_valid_for_cholesky(A):
-        l,u = lu.cholesky_lu(A, int(nSignificant))
+        l, u = lu.cholesky_lu(A, int(nSignificant))
         x = lu.solve_lu(l, u, S, int(nSignificant))
     else:
-        x= "A is not symmetric positive definite, therefore Cholesky's method cannot be applied to it"
-    for record in entries:
-        for entry in record:
-            entry['state'] = DISABLED
-    new_button['state'] = DISABLED
-    global row
+        x = "A is not symmetric positive definite, therefore Cholesky's method cannot be applied to it"
+        print(x)
+        row += 1
+        new_label = Label(root, text=x)
+        new_label.grid(row=row, columnspan=5, sticky='W')
+        return
     for i in range(n):
         new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i][0]))
         new_label.grid(row=row, columnspan=2, sticky='W')
         row += 1
     new_label = Label(root, text="time taken: " + str(time_taken) + " sec.")
     new_label.grid(row=row, columnspan=2, sticky='W')
-    print(x)
 
 
 def doolittle(A, S):
     time_taken = 1
+    for widget in root.winfo_children():
+        widget.destroy()
     global nSignificant
     import src.LU_Decomposition as lu
     l, u = lu.doolittle_lu(A, int(nSignificant))
     x = lu.solve_lu(l, u, S, int(nSignificant))
-    for record in entries:
-        for entry in record:
-            entry['state'] = DISABLED
-    new_button['state'] = DISABLED
     global row
+    row = 0
     for i in range(n):
         new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i][0]))
         new_label.grid(row=row, columnspan=2, sticky='W')
@@ -63,11 +64,10 @@ def crout(A, S):
     import src.LU_Decomposition as lu
     l, u = lu.doolittle_lu(A, int(nSignificant))
     x = lu.solve_lu(l, u, S, int(nSignificant))
-    for record in entries:
-        for entry in record:
-            entry['state'] = DISABLED
-    new_button['state'] = DISABLED
+    for widget in root.winfo_children():
+        widget.destroy()
     global row
+    row = 0
     for i in range(n):
         new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i][0]))
         new_label.grid(row=row, columnspan=2, sticky='W')
@@ -81,15 +81,14 @@ def jacobi_iteration(A, S):
     time_taken = 1
     import src.JacobiSeidel as JM
     global nSignificant, iterations, relative_error
-    B= list(itertools.chain(*S))
+    B = list(itertools.chain(*S))
     initialGuess = list(map(int, Initials.split(",")))
 
     x = JM.jacobi(A, B, initialGuess, iterations, relative_error, int(nSignificant))
-    for record in entries:
-        for entry in record:
-            entry['state'] = DISABLED
-    new_button['state'] = DISABLED
+    for widget in root.winfo_children():
+        widget.destroy()
     global row
+    row = 0
     for i in range(n):
         new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i][0]))
         new_label.grid(row=row, columnspan=2, sticky='W')
@@ -103,15 +102,14 @@ def gauss_seidel(A, S):
     time_taken = 1
     import src.JacobiSeidel as GS
     global nSignificant, iterations, relative_error
-    B= list(itertools.chain(*S))
+    B = list(itertools.chain(*S))
     initialGuess = list(map(int, Initials.split(",")))
 
-    x = GS.jacobi(A, B, initialGuess, iterations, relative_error ,int(nSignificant))
-    for record in entries:
-        for entry in record:
-            entry['state'] = DISABLED
-    new_button['state'] = DISABLED
+    x = GS.jacobi(A, B, initialGuess, iterations, relative_error, int(nSignificant))
+    for widget in root.winfo_children():
+        widget.destroy()
     global row
+    row = 0
     for i in range(n):
         new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i][0]))
         new_label.grid(row=row, columnspan=2, sticky='W')
@@ -128,7 +126,7 @@ def done():
         S = []
         for record in entries:
             A.append([])
-            for i in range(0, len(record)-1):
+            for i in range(0, len(record) - 1):
                 entry = record[i].get()
                 if entry:
                     A[-1].append(float(entry))
@@ -142,12 +140,12 @@ def done():
         new_label.after(1000, lambda: new_label.destroy())
         return
     a_np = np.array(A)
-    s_np= np.array(S)
-    
+    s_np = np.array(S)
+
     if abs(LA.det(a_np)) < 1e-8:
         x = "Matrix is singular"
         return
-    
+
     if methodType == "Gauss Elimination":
         gauss_elimination()
     elif methodType == "Gauss-Jordan":
