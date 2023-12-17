@@ -150,6 +150,7 @@ def backSub(a, nsignificant):  # applies backward substitution to a matrix in th
 
 def gaussJordan(a, nsignificant):
     n = len(a)
+    solution = []
     for i in range(n):
         swap(a, i, maxIdx(a, i))
         for k in range(n):
@@ -162,6 +163,13 @@ def gaussJordan(a, nsignificant):
             a[k] = [0 if idx == i else a[k][idx] for idx in range(len(a[k]))]
     for i in range(n):
         a[i] = rnd(scale(a[i], inv(a[i][i])), nsignificant)
+        solution.append(a[i][-1])
+    for i in range(len(solution)):
+        if isinstance(solution[i], str):
+            e = solution[i]
+            e = parse_expr(e)
+            solution[i] = N(e, 5)
+    return solution
 
 
 # m = m*1.0
