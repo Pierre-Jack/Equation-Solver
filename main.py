@@ -48,7 +48,7 @@ def jacobi_iteration(A, S):
     B= list(itertools.chain(*S))
     initialGuess = list(map(int, Initials.split(",")))
     print("Hello JacobiIteration")
-    x= JM.jacobi(A, B, initialGuess, 10000, 0.05 ,int(nSignificant))
+    x= JM.jacobi(A, B, initialGuess, 20, 0.05 ,int(nSignificant))
     print(x)
 
 
