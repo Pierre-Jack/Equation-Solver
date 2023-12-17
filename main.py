@@ -3,7 +3,6 @@ from tkinter import *
 import tkinter as tk
 import numpy as np
 from numpy import linalg as LA
-import math
 import itertools
 
 
@@ -18,11 +17,12 @@ def gauss_jordan():
 def cholesky(A, S):
     global nSignificant
     import src.LU_Decomposition as lu
-    if(lu.check_if_valid_for_cholesky(A)):
+    if lu.check_if_valid_for_cholesky(A):
         l,u = lu.cholesky_lu(A, int(nSignificant))
         x = lu.solve_lu(l, u, S, int(nSignificant))
     else:
         x= "A is not symmetric positive definite, therefore Cholesky's method cannot be applied to it"
+
     print(x)
 
 
