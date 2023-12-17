@@ -7,12 +7,50 @@ import itertools
 import time
 
 
-def gauss_elimination():
+def gauss_elimination(A, S):
+    for i in range(len(A)):
+        A[i].append(S[i][0])
+    print(A)
+    import src.GaussianSolver as Gs
+    global nSignificant, row
     print("Hello gaussElimination")
+    row = 0
+    for widget in root.winfo_children():
+        widget.destroy()
+    start_time = time.time()
+    Gs.gaussian(A, nSignificant)
+    x = Gs.backSub(A, nSignificant)
+    end_time = time.time()
+    time_taken = round(end_time - start_time, 5)
+    for i in range(n):
+        new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i]))
+        new_label.grid(row=row, columnspan=2, sticky='W')
+        row += 1
+    new_label = Label(root, text="time taken: " + str(time_taken) + " sec.")
+    new_label.grid(row=row, columnspan=2, sticky='W')
+    print(x)
 
-
-def gauss_jordan():
-    print("Hello gaussJordan")
+def gauss_jordan(A, S):
+    for i in range(len(A)):
+        A[i].append(S[i][0])
+    print(A)
+    import src.GaussianSolver as Gs
+    global nSignificant, row
+    print("Hello gaussElimination")
+    row = 0
+    for widget in root.winfo_children():
+        widget.destroy()
+    start_time = time.time()
+    x = Gs.gaussJordan(A, nSignificant)
+    end_time = time.time()
+    time_taken = round(end_time - start_time, 5)
+    for i in range(n):
+        new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i]))
+        new_label.grid(row=row, columnspan=2, sticky='W')
+        row += 1
+    new_label = Label(root, text="time taken: " + str(time_taken) + " sec.")
+    new_label.grid(row=row, columnspan=2, sticky='W')
+    print(x)
 
 
 def cholesky(A, S):
@@ -173,7 +211,7 @@ def done():
         return
 
     if methodType == "Gauss Elimination":
-        gauss_elimination()
+        gauss_elimination(A, S)
     elif methodType == "Gauss-Jordan":
         gauss_jordan(A, S)
     elif methodType == "LU-Decomposition":
@@ -195,6 +233,7 @@ def get_coeff():
         nSignificant = (sig_fig.get())
         sig_fig.grid_forget()
         label_sig_fig.grid_forget()
+        parm_button.grid_forget()
         if methodType == "LU-Decomposition":
             global LUType
             LUType = (combo2.get())
@@ -331,8 +370,10 @@ def get_parm():
 
             parm_button = Button(root, text='SubmitParm', command=get_coeff)
             parm_button.grid(row=10, column=0)
-        else:
-            get_coeff()
+        # else:
+        #     get_coeff()
+        parm_button = Button(root, text='SubmitParm', command=get_coeff)
+        parm_button.grid(row=4, column=0)
     except ValueError:
         label = Label(root, text="Choose an LU method")
         label.grid(row=5, column=0, columnspan=3)

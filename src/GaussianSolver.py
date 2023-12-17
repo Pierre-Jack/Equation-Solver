@@ -5,16 +5,17 @@ from sympy.parsing.sympy_parser import (
     standard_transformations,
 )
 import numpy as np
-import simpy as simpy
 
-eq1 = [1, 2, 3, 4, 5]
-eq2 = [6, 7, 8, 9, 10]
-eq3 = [11, 11, 12, 14, 15]
-eq4 = [16, 16, 16, 19, 20]
+# import simpy as simpy
 
-a = [eq1, eq2, eq3, eq4]
-b = [eq1, eq2, eq3, eq4]
-m = np.array([eq1, eq2, eq3])
+# eq1 = [1, 2, 3, 4, 5]
+# eq2 = [6, 7, 8, 9, 10]
+# eq3 = [11, 11, 12, 14, 15]
+# eq4 = [16, 16, 16, 19, 20]
+#
+# a = [eq1, eq2, eq3, eq4]
+# b = [eq1, eq2, eq3, eq4]
+# m = np.array([eq1, eq2, eq3])
 
 
 # m = np.matrix([eq1, eq2, eq3])
@@ -92,12 +93,13 @@ def maxIdx(a, col):
     for i in range(col, len(a)):
         if not isinstance(a[i][col], str):
             if not (a[i][len(a[i]) - 1] == 0 or a[max][len(a[max]) - 1] == 0):
-                if (isinstance(a[max][col], str) or a[i][col] / a[i][len(a[i]) - 1] > a[max][col] / a[max][len(a[max]) - 1]) and a[i][col] > 1e-3:
+                if (isinstance(a[max][col], str) or a[i][col] / a[i][len(a[i]) - 1] > a[max][col] / a[max][
+                    len(a[max]) - 1]) and a[i][col] > 1e-3:
                     max = i
     return max
 
 
-def gaussian(a):
+def gaussian(a, nsignificant):
     n = len(a)
     for i in range(n):
         # for row in range(i, n):
@@ -112,14 +114,14 @@ def gaussian(a):
             a[k] = [0 if idx == i else a[k][idx] for idx in range(len(a[k]))]
 
 
-def backSub(a):  # applies backward substitution to a matrix in the upper triangular form
+def backSub(a, nsignificant):  # applies backward substitution to a matrix in the upper triangular form
     solution = []
     n = len(a)
     m = len(a[0]) - 1  # cols of the coefficient matrix, col m is the augmented
-    for i in range(n-1, -1, -1):
+    for i in range(n - 1, -1, -1):
         tmp = a[i][m]
-        for j in range(m-1, i, -1):
-            tmp = add(tmp, neg(scale(a[i][j], solution[m - j -2])))
+        for j in range(m - 1, i, -1):
+            tmp = add(tmp, neg(scale(a[i][j], solution[m - j - 2])))
         solution = [scale(tmp, inv(a[i][i]))] + solution
     for i in range(len(solution)):
         if isinstance(solution[i], str):
@@ -129,7 +131,8 @@ def backSub(a):  # applies backward substitution to a matrix in the upper triang
 
     return solution
 
-def gaussJordan(a):
+
+def gaussJordan(a, nsignificant):
     n = len(a)
     for i in range(n):
         swap(a, i, maxIdx(a, i))
@@ -145,7 +148,7 @@ def gaussJordan(a):
 
 
 # m = m*1.0
-gaussJordan(a)
+# gaussJordan(a)
 
 # print(a)
 # print(np.array(backSub(a)))
@@ -156,7 +159,4 @@ gaussJordan(a)
 # print(parse_expr(e))
 # print(simpy.simplify(backSub(a)[0]))
 # print(np.array(a))
-print(backSub(a))
-
-
-
+# print(backSub(a))

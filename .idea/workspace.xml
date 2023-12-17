@@ -7,6 +7,10 @@
     <list default="true" id="8ccf7b0d-a89c-4f8e-a8b3-14baa6e2691e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GaussianSolver.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/GaussianSolver.py" afterDir="false" />
+    </list>
+    <list id="88737e60-4c1b-474a-aa44-9200784124be" name="Changes by Lenovo" comment="">
+      <change beforePath="$PROJECT_DIR$/src/GaussianSolver.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/GaussianSolver.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +26,22 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="LineStatusTrackerManager">
+    <file path="$PROJECT_DIR$/src/GaussianSolver.py">
+      <ranges>
+        <range start1="7" end1="8" start2="7" end2="9" changelist="8ccf7b0d-a89c-4f8e-a8b3-14baa6e2691e" />
+        <range start1="9" end1="17" start2="10" end2="18" changelist="88737e60-4c1b-474a-aa44-9200784124be" />
+        <range start1="94" end1="95" start2="95" end2="97" changelist="8ccf7b0d-a89c-4f8e-a8b3-14baa6e2691e" />
+        <range start1="99" end1="100" start2="101" end2="102" changelist="88737e60-4c1b-474a-aa44-9200784124be" />
+        <range start1="114" end1="115" start2="116" end2="117" changelist="88737e60-4c1b-474a-aa44-9200784124be" />
+        <range start1="118" end1="119" start2="120" end2="121" changelist="8ccf7b0d-a89c-4f8e-a8b3-14baa6e2691e" />
+        <range start1="120" end1="122" start2="122" end2="124" changelist="8ccf7b0d-a89c-4f8e-a8b3-14baa6e2691e" />
+        <range start1="131" end1="132" start2="133" end2="135" changelist="8ccf7b0d-a89c-4f8e-a8b3-14baa6e2691e" />
+        <range start1="147" end1="148" start2="150" end2="151" changelist="88737e60-4c1b-474a-aa44-9200784124be" />
+        <range start1="158" end1="162" start2="161" end2="162" changelist="8ccf7b0d-a89c-4f8e-a8b3-14baa6e2691e" />
+      </ranges>
+    </file>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -117,15 +137,26 @@
       <workItem from="1702748104236" duration="80000" />
       <workItem from="1702807212372" duration="19000" />
       <workItem from="1702807241123" duration="12000" />
-      <workItem from="1702807278366" duration="7162000" />
+      <workItem from="1702807278366" duration="9925000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Equation_Solver$main.coverage" NAME="main Coverage Results" MODIFIED="1702814270580" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Equation_Solver$main.coverage" NAME="main Coverage Results" MODIFIED="1702819090521" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Equation_Solver$GaussianSolver.coverage" NAME="GaussianSolver Coverage Results" MODIFIED="1702660923398" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>
