@@ -18,8 +18,8 @@ def gauss_elimination(A, S):
     for widget in root.winfo_children():
         widget.destroy()
     start_time = time.time()
-    Gs.gaussian(A, nSignificant)
-    x = Gs.backSub(A, nSignificant)
+    Gs.gaussian(A, int(nSignificant))
+    x = Gs.backSub(A, int(nSignificant))
     end_time = time.time()
     time_taken = round(end_time - start_time, 5)
     for i in range(n):
@@ -41,7 +41,10 @@ def gauss_jordan(A, S):
     for widget in root.winfo_children():
         widget.destroy()
     start_time = time.time()
-    x = Gs.gaussJordan(A, nSignificant)
+    Gs.gaussJordan(A, int(nSignificant))
+    x=[]
+    for i in range(len(A)):
+        x.append(A[i][-1])
     end_time = time.time()
     time_taken = round(end_time - start_time, 5)
     for i in range(n):
