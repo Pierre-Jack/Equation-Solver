@@ -79,24 +79,32 @@ def cholesky(A, S):
 
 
 def doolittle(A, S):
+    global row
     for widget in root.winfo_children():
         widget.destroy()
-    global nSignificant
-    import src.LU_Decomposition as lu
-    start_time = timer()
-    l, u = lu.doolittle_lu(A, int(nSignificant))
-    x = lu.solve_lu(l, u, S, int(nSignificant))
-    end_time = timer()
-    time_taken = round(((end_time - start_time) * 1000000), 5)
-    global row
-    row = 0
-    for i in range(n):
-        new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i][0]))
+    if abs(A[0][0]) < 1e-8:
+        x = "The system cannot be solved using Doolittle LU decomposition since A[0][0] = 0 or its value is too small"
+        print(x)
+        row = 0
+        new_label = Label(root, text=x)
+        new_label.grid(row=row, columnspan=5, sticky='W')
+        return
+    else:
+        global nSignificant
+        import src.LU_Decomposition as lu
+        start_time = timer()
+        l, u = lu.doolittle_lu(A, int(nSignificant))
+        x = lu.solve_lu(l, u, S, int(nSignificant))
+        end_time = timer()
+        time_taken = round(((end_time - start_time) * 1000000), 5)
+        row = 0
+        for i in range(n):
+            new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i][0]))
+            new_label.grid(row=row, columnspan=2, sticky='W')
+            row += 1
+        new_label = Label(root, text="time taken: " + str(time_taken) + " µs.")
         new_label.grid(row=row, columnspan=2, sticky='W')
-        row += 1
-    new_label = Label(root, text="time taken: " + str(time_taken) + " µs.")
-    new_label.grid(row=row, columnspan=2, sticky='W')
-    print(x)
+        print(x)
 
 
 def crout(A, S):
