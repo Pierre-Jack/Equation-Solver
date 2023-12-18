@@ -4,12 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+
     <list default="true" id="8ccf7b0d-a89c-4f8e-a8b3-14baa6e2691e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <list id="f5ff76e7-4cb2-4386-b5d5-c7876cb507d2" name="Changes by ADMIN" comment="" />
     <list id="68ca5de9-e380-42c1-912e-271e53404e5f" name="Changes by Karene" comment="" />
+
     <list id="88737e60-4c1b-474a-aa44-9200784124be" name="Changes by Lenovo" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,6 +36,7 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "git-widget-placeholder": "Pierre",
@@ -41,8 +44,9 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)"
+
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Python.main">
     <configuration name="Jacobi&amp;Seidel" type="PythonConfigurationType" factoryName="Python">
       <module name="Equation-Solver" />
@@ -112,7 +116,7 @@
       <workItem from="1702748104236" duration="80000" />
       <workItem from="1702807212372" duration="19000" />
       <workItem from="1702807241123" duration="12000" />
-      <workItem from="1702807278366" duration="9925000" />
+      <workItem from="1702807278366" duration="10085000" />
     </task>
     <servers />
   </component>
