@@ -365,7 +365,7 @@ def get_parm():
                 )
                 combo2.grid(row=5, column=0, pady=10, sticky='nsew')
                 global parm_button
-                parm_button = Button(root, text='SubmitParm', command=get_coeff)
+                parm_button = Button(root, text='Next', command=get_coeff)
                 parm_button.grid(row=6, column=0)
         elif methodType == "Jacobi Iteration" or methodType == "Gauss-Seidel":
             global InitialTextBox, labelInitial, Initials, N_Iterations, N_IterationsLabel, Relative_error, Relative_errorLabel
@@ -384,10 +384,10 @@ def get_parm():
             Relative_error = tk.Entry(root, width=10, borderwidth=5)
             Relative_error.grid(row=9, column=0, pady=10, sticky='nsew')
 
-            parm_button = Button(root, text='SubmitParm', command=get_coeff)
+            parm_button = Button(root, text='Next', command=get_coeff)
             parm_button.grid(row=10, column=0)
         else:
-            parm_button = Button(root, text='SubmitParm', command=get_coeff)
+            parm_button = Button(root, text='Next', command=get_coeff)
             parm_button.grid(row=4, column=0)
     except ValueError:
         label = Label(root, text="Choose an LU method")
@@ -423,6 +423,6 @@ combo = ttk.Combobox(
 )
 combo.grid(row=3, column=0, pady=10, sticky='nsew')
 
-my_button = tk.Button(root, text='SubmitFirst', command=get_parm)
+my_button = tk.Button(root, text='Next', command=get_parm)
 my_button.grid(row=6, column=0, pady=10, sticky='nsew')
 root.mainloop()

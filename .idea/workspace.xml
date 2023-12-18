@@ -10,9 +10,7 @@
     </list>
     <list id="111bef21-eab5-4c0c-a3bf-bfceeb8f37cd" name="Changes by ADMIN" comment="" />
     <list id="1a8a8609-038f-4337-a0c8-836e7bfb6201" name="Changes by Karene" comment="" />
-    <list id="db236f9e-ae9c-4fb9-b14c-f0869db4910f" name="Changes by Lenovo" comment="">
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-    </list>
+    <list id="db236f9e-ae9c-4fb9-b14c-f0869db4910f" name="Changes by Lenovo" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -20,17 +18,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/main.py">
-      <ranges>
-        <range start1="204" end1="207" start2="204" end2="204" changelist="db236f9e-ae9c-4fb9-b14c-f0869db4910f" />
-        <range start1="208" end1="209" start2="205" end2="206" changelist="62c3f052-4c88-4b42-a5bd-3d5e6444b98e" />
-        <range start1="230" end1="231" start2="227" end2="228" changelist="62c3f052-4c88-4b42-a5bd-3d5e6444b98e" />
-        <range start1="232" end1="233" start2="229" end2="230" changelist="62c3f052-4c88-4b42-a5bd-3d5e6444b98e" />
-        <range start1="234" end1="235" start2="231" end2="232" changelist="62c3f052-4c88-4b42-a5bd-3d5e6444b98e" />
-      </ranges>
-    </file>
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
@@ -42,7 +29,7 @@
     <servers />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Equation_Solver$main.coverage" NAME="main Coverage Results" MODIFIED="1702922647174" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Equation_Solver$main.coverage" NAME="main Coverage Results" MODIFIED="1702924157431" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Equation_Solver$GaussianSolver.coverage" NAME="GaussianSolver Coverage Results" MODIFIED="1702921071998" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>
