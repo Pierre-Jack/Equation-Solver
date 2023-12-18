@@ -4,9 +4,7 @@ import tkinter as tk
 import numpy as np
 from numpy import linalg as LA
 import itertools
-import time
-
-
+from timeit import default_timer as timer
 def gauss_elimination(A, S):
     for i in range(len(A)):
         A[i].append(S[i][0])
@@ -17,16 +15,17 @@ def gauss_elimination(A, S):
     row = 0
     for widget in root.winfo_children():
         widget.destroy()
-    start_time = time.time()
+    start_time = timer()
     Gs.gaussian(A, int(nSignificant))
     x = Gs.backSub(A, int(nSignificant))
-    end_time = time.time()
-    time_taken = round(end_time - start_time, 5)
+    end_time = timer()
+    time_taken = round(((end_time - start_time) * 1000000), 5)
+    print(time_taken)
     for i in range(n):
         new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i]))
         new_label.grid(row=row, columnspan=2, sticky='W')
         row += 1
-    new_label = Label(root, text="time taken: " + str(time_taken) + " sec.")
+    new_label = Label(root, text="time taken: " + str(time_taken) + " µs.")
     new_label.grid(row=row, columnspan=2, sticky='W')
     print(x)
 
@@ -40,15 +39,15 @@ def gauss_jordan(A, S):
     row = 0
     for widget in root.winfo_children():
         widget.destroy()
-    start_time = time.time()
+    start_time = timer()
     x = Gs.gaussJordan(A, int(nSignificant))
-    end_time = time.time()
-    time_taken = round(end_time - start_time, 5)
+    end_time = timer()
+    time_taken = round(((end_time - start_time)*100000), 5)
     for i in range(n):
         new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i]))
         new_label.grid(row=row, columnspan=2, sticky='W')
         row += 1
-    new_label = Label(root, text="time taken: " + str(time_taken) + " sec.")
+    new_label = Label(root, text="time taken: " + str(time_taken) + " µs.")
     new_label.grid(row=row, columnspan=2, sticky='W')
     print(x)
 
@@ -60,11 +59,11 @@ def cholesky(A, S):
     for widget in root.winfo_children():
         widget.destroy()
     if lu.check_if_valid_for_cholesky(A):
-        start_time = time.time()
+        start_time = timer()
         l, u = lu.cholesky_lu(A, int(nSignificant))
         x = lu.solve_lu(l, u, S, int(nSignificant))
-        end_time = time.time()
-        time_taken = round(end_time - start_time, 5)
+        end_time = timer()
+        time_taken = round(((end_time - start_time) * 1000000), 5)
     else:
         x = "A is not symmetric positive definite, therefore Cholesky's method cannot be applied to it"
         print(x)
@@ -75,7 +74,7 @@ def cholesky(A, S):
         new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i][0]))
         new_label.grid(row=row, columnspan=2, sticky='W')
         row += 1
-    new_label = Label(root, text="time taken: " + str(time_taken) + " sec.")
+    new_label = Label(root, text="time taken: " + str(time_taken) + " µs.")
     new_label.grid(row=row, columnspan=2, sticky='W')
 
 
@@ -84,18 +83,18 @@ def doolittle(A, S):
         widget.destroy()
     global nSignificant
     import src.LU_Decomposition as lu
-    start_time = time.time()
+    start_time = timer()
     l, u = lu.doolittle_lu(A, int(nSignificant))
     x = lu.solve_lu(l, u, S, int(nSignificant))
-    end_time = time.time()
-    time_taken = round(end_time - start_time, 5)
+    end_time = timer()
+    time_taken = round(((end_time - start_time)*100000), 5)
     global row
     row = 0
     for i in range(n):
         new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i][0]))
         new_label.grid(row=row, columnspan=2, sticky='W')
         row += 1
-    new_label = Label(root, text="time taken: " + str(time_taken) + " sec.")
+    new_label = Label(root, text="time taken: " + str(time_taken) + " µs.")
     new_label.grid(row=row, columnspan=2, sticky='W')
     print(x)
 
@@ -103,11 +102,11 @@ def doolittle(A, S):
 def crout(A, S):
     global nSignificant
     import src.LU_Decomposition as lu
-    start_time = time.time()
+    start_time = timer()
     l, u = lu.doolittle_lu(A, int(nSignificant))
     x = lu.solve_lu(l, u, S, int(nSignificant))
-    end_time = time.time()
-    time_taken = round(end_time - start_time, 5)
+    end_time = timer()
+    time_taken = round(((end_time - start_time)*100000), 5)
     for widget in root.winfo_children():
         widget.destroy()
     global row
@@ -116,7 +115,7 @@ def crout(A, S):
         new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i][0]))
         new_label.grid(row=row, columnspan=2, sticky='W')
         row += 1
-    new_label = Label(root, text="time taken: " + str(time_taken) + " sec.")
+    new_label = Label(root, text="time taken: " + str(time_taken) + " µs.")
     new_label.grid(row=row, columnspan=2, sticky='W')
     print(x)
 
@@ -126,10 +125,10 @@ def jacobi_iteration(A, S):
     global nSignificant, iterations, relative_error
     B = list(itertools.chain(*S))
     initialGuess = list(map(int, Initials.split(",")))
-    start_time = time.time()
+    start_time = timer()
     x = JM.jacobi(A, B, initialGuess, int(iterations), int(relative_error), int(nSignificant))
-    end_time = time.time()
-    time_taken = round(end_time - start_time, 5)
+    end_time = timer()
+    time_taken = round(((end_time - start_time)*100000), 5)
     for widget in root.winfo_children():
         widget.destroy()
     global row
@@ -144,7 +143,7 @@ def jacobi_iteration(A, S):
         new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i]))
         new_label.grid(row=row, columnspan=2, sticky='W')
         row += 1
-    new_label = Label(root, text="time taken: " + str(time_taken) + " sec.")
+    new_label = Label(root, text="time taken: " + str(time_taken) + " µs.")
     new_label.grid(row=row, columnspan=2, sticky='W')
     print(x)
 
@@ -154,10 +153,10 @@ def gauss_seidel(A, S):
     global nSignificant, iterations, relative_error
     B = list(itertools.chain(*S))
     initialGuess = list(map(int, Initials.split(",")))
-    start_time = time.time()
+    start_time = timer()
     x = GS.jacobi(A, B, initialGuess, int(iterations), int(relative_error), int(nSignificant))
-    end_time = time.time()
-    time_taken = end_time - start_time
+    end_time = timer()
+    time_taken = round(((end_time - start_time)*100000), 5)
     for widget in root.winfo_children():
         widget.destroy()
     global row
@@ -166,7 +165,7 @@ def gauss_seidel(A, S):
         new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i]))
         new_label.grid(row=row, columnspan=2, sticky='W')
         row += 1
-    new_label = Label(root, text="time taken: " + str(time_taken) + " sec.")
+    new_label = Label(root, text="time taken: " + str(time_taken) + " µs.")
     new_label.grid(row=row, columnspan=2, sticky='W')
     print(x)
 
@@ -203,8 +202,9 @@ def done():
         new_label.grid(row=row, columnspan=n * 3, sticky='W')
         new_label.after(1000, lambda: new_label.destroy())
         return
-    a_np = np.array(A)
-    s_np = np.array(S)
+    if methodType != "Gauss Elimination" and methodType != "Gauss-Jordan":
+        a_np = np.array(A)
+        s_np = np.array(S)
 
     if not is_str and abs(LA.det(a_np)) < 1e-8:
         screen_width = root.winfo_screenwidth()
@@ -389,10 +389,9 @@ def get_parm():
 
             parm_button = Button(root, text='SubmitParm', command=get_coeff)
             parm_button.grid(row=10, column=0)
-        # else:
-        #     get_coeff()
-        parm_button = Button(root, text='SubmitParm', command=get_coeff)
-        parm_button.grid(row=4, column=0)
+        else:
+            parm_button = Button(root, text='SubmitParm', command=get_coeff)
+            parm_button.grid(row=4, column=0)
     except ValueError:
         label = Label(root, text="Choose an LU method")
         label.grid(row=5, column=0, columnspan=3)

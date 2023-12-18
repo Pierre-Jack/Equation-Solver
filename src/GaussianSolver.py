@@ -143,7 +143,7 @@ def backSub(a, nsignificant):  # applies backward substitution to a matrix in th
         if isinstance(solution[i], str):
             e = solution[i]
             e = parse_expr(e)
-            solution[i] = N(e, 5)
+            solution[i] = N(e, 2)
 
     return solution
 
