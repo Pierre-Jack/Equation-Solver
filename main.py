@@ -18,8 +18,8 @@ def gauss_elimination(A, S):
     for widget in root.winfo_children():
         widget.destroy()
     start_time = time.time()
-    Gs.gaussian(A, nSignificant)
-    x = Gs.backSub(A, nSignificant)
+    Gs.gaussian(A, int(nSignificant))
+    x = Gs.backSub(A, int(nSignificant))
     end_time = time.time()
     time_taken = round(end_time - start_time, 5)
     for i in range(n):
@@ -41,7 +41,7 @@ def gauss_jordan(A, S):
     for widget in root.winfo_children():
         widget.destroy()
     start_time = time.time()
-    x = Gs.gaussJordan(A, nSignificant)
+    x = Gs.gaussJordan(A, int(nSignificant))
     end_time = time.time()
     time_taken = round(end_time - start_time, 5)
     for i in range(n):
@@ -172,18 +172,30 @@ def gauss_seidel(A, S):
 
 
 def done():
-    global row, n
+    global row, n, is_str
+    is_str = False
     try:
         A = []
+        A_str = []
         S = []
         for record in entries:
             A.append([])
+            A_str.append([])
             for i in range(0, len(record) - 1):
                 entry = record[i].get()
                 if entry:
-                    A[-1].append(float(entry))
+                    if methodType != "Gauss Elimination" and methodType != "Gauss-Jordan":
+                        A[-1].append(float(entry))
+                    else:
+                        if entry.isalpha():
+                            A_str[-1].append(entry)
+                            is_str = True
+                        else:
+                            A_str[-1].append(float(entry))
+                            A[-1].append(float(entry))
                 else:
                     A[-1].append(0)
+                    A_str[-1].append(0)
             entry = record[-1].get()
             S.append([float(entry)])
     except ValueError:
@@ -194,7 +206,7 @@ def done():
     a_np = np.array(A)
     s_np = np.array(S)
 
-    if abs(LA.det(a_np)) < 1e-8:
+    if not is_str and abs(LA.det(a_np)) < 1e-8:
         screen_width = root.winfo_screenwidth()
         screen_height = root.winfo_screenheight()
         x_position = (screen_width - 400) // 2
@@ -211,9 +223,9 @@ def done():
         return
 
     if methodType == "Gauss Elimination":
-        gauss_elimination(A, S)
+        gauss_elimination(A_str, S)
     elif methodType == "Gauss-Jordan":
-        gauss_jordan(A, S)
+        gauss_jordan(A_str, S)
     elif methodType == "LU-Decomposition":
         if LUType == "Cholesky":
             cholesky(a_np, s_np)
@@ -228,9 +240,16 @@ def done():
 
 
 def get_coeff():
+    global nSignificant
+    nSignificant = '5'
     try:
-        global nSignificant
         nSignificant = (sig_fig.get())
+        if nSignificant == '':
+            nSignificant = '5'
+    except ValueError:
+        nSignificant = '5'
+        return
+    try:
         sig_fig.grid_forget()
         label_sig_fig.grid_forget()
         parm_button.grid_forget()

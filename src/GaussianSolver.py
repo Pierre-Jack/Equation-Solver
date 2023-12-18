@@ -5,6 +5,7 @@ from sympy.parsing.sympy_parser import (
     standard_transformations,
 )
 import numpy as np
+import math
 
 # import simpy as simpy
 
@@ -19,7 +20,17 @@ import numpy as np
 
 
 # m = np.matrix([eq1, eq2, eq3])
-
+def rnd(x, sig):
+    if isinstance(x, str):
+        return x
+    if isinstance(x, list):
+        result = []
+        for i in x:
+            result.append(rnd(i, sig))
+        return result
+    if abs(x) < 1*10**(-sig+1):
+        return 0
+    return round(x, -int(math.floor(math.log10(abs(x)))) + (sig - 1))
 
 def get(x, idx):
     if isinstance(x, np.ndarray):
@@ -111,6 +122,7 @@ def gaussian(a, nsignificant):
             tmp1 = a[i][i]
             tmp2 = a[k][i]
             a[k] = add(a[k], scale(scale(a[i], inv(tmp1)), neg(tmp2)))
+            a[k] = rnd(a[k], nsignificant)
             a[k] = [0 if idx == i else a[k][idx] for idx in range(len(a[k]))]
 
 
@@ -121,8 +133,12 @@ def backSub(a, nsignificant):  # applies backward substitution to a matrix in th
     for i in range(n - 1, -1, -1):
         tmp = a[i][m]
         for j in range(m - 1, i, -1):
-            tmp = add(tmp, neg(scale(a[i][j], solution[m - j - 2])))
-        solution = [scale(tmp, inv(a[i][i]))] + solution
+            tmp = add(tmp, neg(scale(a[i][j], solution[j-i-1])))
+            tmp = rnd(tmp, nsignificant)
+
+        if not isinstance(tmp, str) and abs(tmp) < 1e-10:
+            tmp = 0
+        solution = [rnd(scale(tmp, inv(a[i][i])), nsignificant)] + solution
     for i in range(len(solution)):
         if isinstance(solution[i], str):
             e = solution[i]
@@ -134,6 +150,7 @@ def backSub(a, nsignificant):  # applies backward substitution to a matrix in th
 
 def gaussJordan(a, nsignificant):
     n = len(a)
+    solution = []
     for i in range(n):
         swap(a, i, maxIdx(a, i))
         for k in range(n):
@@ -142,9 +159,17 @@ def gaussJordan(a, nsignificant):
             tmp1 = a[i][i]
             tmp2 = a[k][i]
             a[k] = add(a[k], scale(scale(a[i], inv(tmp1)), neg(tmp2)))
+            a[k] = rnd(a[k], nsignificant)
             a[k] = [0 if idx == i else a[k][idx] for idx in range(len(a[k]))]
     for i in range(n):
-        a[i] = scale(a[i], inv(a[i][i]))
+        a[i] = rnd(scale(a[i], inv(a[i][i])), nsignificant)
+        solution.append(a[i][-1])
+    for i in range(len(solution)):
+        if isinstance(solution[i], str):
+            e = solution[i]
+            e = parse_expr(e)
+            solution[i] = N(e, 5)
+    return solution
 
 
 # m = m*1.0
