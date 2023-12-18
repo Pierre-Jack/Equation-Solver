@@ -202,11 +202,8 @@ def done():
         new_label.grid(row=row, columnspan=n * 3, sticky='W')
         new_label.after(1000, lambda: new_label.destroy())
         return
-    if methodType != "Gauss Elimination" and methodType != "Gauss-Jordan":
-        a_np = np.array(A)
-        s_np = np.array(S)
 
-    if not is_str and abs(LA.det(a_np)) < 1e-8:
+    if not is_str and abs(LA.det(np.array(A))) < 1e-8:
         screen_width = root.winfo_screenwidth()
         screen_height = root.winfo_screenheight()
         x_position = (screen_width - 400) // 2
@@ -228,11 +225,11 @@ def done():
         gauss_jordan(A_str, S)
     elif methodType == "LU-Decomposition":
         if LUType == "Cholesky":
-            cholesky(a_np, s_np)
+            cholesky(np.array(A), np.array(S))
         elif LUType == "Crout":
-            crout(a_np, s_np)
+            crout(np.array(A), np.array(S))
         elif LUType == "Doolittle":
-            doolittle(a_np, s_np)
+            doolittle(np.array(A), np.array(S))
     elif methodType == "Jacobi Iteration":
         jacobi_iteration(A, S)
     elif methodType == "Gauss-Seidel":
