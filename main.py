@@ -42,7 +42,7 @@ def gauss_jordan(A, S):
     start_time = timer()
     x = Gs.gaussJordan(A, int(nSignificant))
     end_time = timer()
-    time_taken = round(((end_time - start_time)*100000), 5)
+    time_taken = round(((end_time - start_time) * 1000000), 5)
     for i in range(n):
         new_label = Label(root, text=chr(97 + i) + ' = ' + str(x[i]))
         new_label.grid(row=row, columnspan=2, sticky='W')
@@ -87,7 +87,7 @@ def doolittle(A, S):
     l, u = lu.doolittle_lu(A, int(nSignificant))
     x = lu.solve_lu(l, u, S, int(nSignificant))
     end_time = timer()
-    time_taken = round(((end_time - start_time)*100000), 5)
+    time_taken = round(((end_time - start_time) * 1000000), 5)
     global row
     row = 0
     for i in range(n):
@@ -106,7 +106,7 @@ def crout(A, S):
     l, u = lu.doolittle_lu(A, int(nSignificant))
     x = lu.solve_lu(l, u, S, int(nSignificant))
     end_time = timer()
-    time_taken = round(((end_time - start_time)*100000), 5)
+    time_taken = round(((end_time - start_time) * 1000000), 5)
     for widget in root.winfo_children():
         widget.destroy()
     global row
@@ -128,7 +128,7 @@ def jacobi_iteration(A, S):
     start_time = timer()
     x = JM.jacobi(A, B, initialGuess, int(iterations), int(relative_error), int(nSignificant))
     end_time = timer()
-    time_taken = round(((end_time - start_time)*100000), 5)
+    time_taken = round(((end_time - start_time) * 1000000), 5)
     for widget in root.winfo_children():
         widget.destroy()
     global row
@@ -156,7 +156,7 @@ def gauss_seidel(A, S):
     start_time = timer()
     x = GS.jacobi(A, B, initialGuess, int(iterations), int(relative_error), int(nSignificant))
     end_time = timer()
-    time_taken = round(((end_time - start_time)*100000), 5)
+    time_taken = round(((end_time - start_time) * 1000000), 5)
     for widget in root.winfo_children():
         widget.destroy()
     global row
