@@ -240,9 +240,16 @@ def done():
 
 
 def get_coeff():
+    global nSignificant
+    nSignificant = '5'
     try:
-        global nSignificant
         nSignificant = (sig_fig.get())
+        if nSignificant == '':
+            nSignificant = '5'
+    except ValueError:
+        nSignificant = '5'
+        return
+    try:
         sig_fig.grid_forget()
         label_sig_fig.grid_forget()
         parm_button.grid_forget()
