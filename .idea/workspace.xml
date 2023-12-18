@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8ccf7b0d-a89c-4f8e-a8b3-14baa6e2691e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GaussianSolver.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/GaussianSolver.py" afterDir="false" />
-    </list>
-    <list id="88737e60-4c1b-474a-aa44-9200784124be" name="Changes by Lenovo" comment="">
-      <change beforePath="$PROJECT_DIR$/src/GaussianSolver.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/GaussianSolver.py" afterDir="false" />
-    </list>
+    <list default="true" id="8ccf7b0d-a89c-4f8e-a8b3-14baa6e2691e" name="Changes" comment="" />
+    <list id="88737e60-4c1b-474a-aa44-9200784124be" name="Changes by Lenovo" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -27,22 +21,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="LineStatusTrackerManager">
-    <file path="$PROJECT_DIR$/src/GaussianSolver.py">
-      <ranges>
-        <range start1="7" end1="8" start2="7" end2="9" changelist="8ccf7b0d-a89c-4f8e-a8b3-14baa6e2691e" />
-        <range start1="9" end1="17" start2="10" end2="18" changelist="88737e60-4c1b-474a-aa44-9200784124be" />
-        <range start1="94" end1="95" start2="95" end2="97" changelist="8ccf7b0d-a89c-4f8e-a8b3-14baa6e2691e" />
-        <range start1="99" end1="100" start2="101" end2="102" changelist="88737e60-4c1b-474a-aa44-9200784124be" />
-        <range start1="114" end1="115" start2="116" end2="117" changelist="88737e60-4c1b-474a-aa44-9200784124be" />
-        <range start1="118" end1="119" start2="120" end2="121" changelist="8ccf7b0d-a89c-4f8e-a8b3-14baa6e2691e" />
-        <range start1="120" end1="122" start2="122" end2="124" changelist="8ccf7b0d-a89c-4f8e-a8b3-14baa6e2691e" />
-        <range start1="131" end1="132" start2="133" end2="135" changelist="8ccf7b0d-a89c-4f8e-a8b3-14baa6e2691e" />
-        <range start1="147" end1="148" start2="150" end2="151" changelist="88737e60-4c1b-474a-aa44-9200784124be" />
-        <range start1="158" end1="162" start2="161" end2="162" changelist="8ccf7b0d-a89c-4f8e-a8b3-14baa6e2691e" />
-      </ranges>
-    </file>
-  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -55,23 +33,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.Jacobi&Seidel.executor": "Run",
-    "Python.main.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/Armia/Documents/GitHub/Equation-Solver",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.Jacobi&amp;Seidel.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Armia/Documents/GitHub/Equation-Solver&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Python.main">
     <configuration name="Jacobi&amp;Seidel" type="PythonConfigurationType" factoryName="Python">
       <module name="Equation-Solver" />
@@ -137,7 +115,7 @@
       <workItem from="1702748104236" duration="80000" />
       <workItem from="1702807212372" duration="19000" />
       <workItem from="1702807241123" duration="12000" />
-      <workItem from="1702807278366" duration="9925000" />
+      <workItem from="1702807278366" duration="10085000" />
     </task>
     <servers />
   </component>
