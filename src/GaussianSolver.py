@@ -7,19 +7,7 @@ from sympy.parsing.sympy_parser import (
 import numpy as np
 import math
 
-# import simpy as simpy
 
-# eq1 = [1, 2, 3, 4, 5]
-# eq2 = [6, 7, 8, 9, 10]
-# eq3 = [11, 11, 12, 14, 15]
-# eq4 = [16, 16, 16, 19, 20]
-#
-# a = [eq1, eq2, eq3, eq4]
-# b = [eq1, eq2, eq3, eq4]
-# m = np.array([eq1, eq2, eq3])
-
-
-# m = np.matrix([eq1, eq2, eq3])
 def rnd(x, sig):
     if isinstance(x, str):
         return x
@@ -113,10 +101,7 @@ def maxIdx(a, col):
 def gaussian(a, nsignificant):
     n = len(a)
     for i in range(n):
-        # for row in range(i, n):
-        #     tmp = a[row][len(a[row])-1]
-        #     if tmp != 0 and tmp != 1:
-        #         a[row] = scale(a[row], 1/tmp)
+
         swap(a, i, maxIdx(a, i))
         for k in range(i + 1, n):
             tmp1 = a[i][i]
@@ -172,16 +157,3 @@ def gaussJordan(a, nsignificant):
     return solution
 
 
-# m = m*1.0
-# gaussJordan(a)
-
-# print(a)
-# print(np.array(backSub(a)))
-# print(swap(a, 0, 2))
-# p = Symbols('p')
-# print(sympify(e))
-# print(e)
-# print(parse_expr(e))
-# print(simpy.simplify(backSub(a)[0]))
-# print(np.array(a))
-# print(backSub(a))
