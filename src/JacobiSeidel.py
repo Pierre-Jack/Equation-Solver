@@ -67,6 +67,7 @@ def jacobi(coefficient, b, initialGuess, numOfIterations, absolute_relative_erro
         k = k+1
 
     if k == (numOfIterations+1):
+        print(k)
         return 'Cannot Converge.'
 
 
@@ -110,7 +111,8 @@ def seidel(coefficient, b, initialGuess, numOfIterations, absolute_relative_erro
         k=k+1
 
     if k == (numOfIterations+1):
-         return 'Cannot Converge.'
+        print(k)
+        return 'Cannot Converge.'
 
 
 
