@@ -5,6 +5,19 @@ import numpy as np
 from numpy import linalg as LA
 import itertools
 from timeit import default_timer as timer
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,
+NavigationToolbar2Tk)
+from lib2to3.pygram import Symbols
+from sympy import sympify, N
+from sympy.parsing.sympy_parser import (
+    parse_expr,
+    standard_transformations,
+)
+from time import sleep
+from numpy import *
+
+
 def gauss_elimination(A, S):
     for i in range(len(A)):
         A[i].append(S[i][0])
@@ -289,7 +302,10 @@ def get_coeff():
         return
     try:
         global n
-        n = int(e.get())
+        n = e.get()
+        if n == '':
+            n = 0.00001
+        n = float(n)
     except ValueError:
         label = Label(root, text="You're supposed to enter a number, Try again")
         label.grid(row=1, column=0, columnspan=3)
@@ -333,29 +349,77 @@ def get_coeff():
     new_button.grid(row=row, column=3 * n)
     row += 1
 
+# def f(x):
+#     return np.sin(x)
+
+# func = "x**2-9"
+#
+
+def plot():
+
+    func = input_function.get()
+    code = """def f(x):
+                    return """ + func
+    exec(code, globals())
+
+
+    fig = Figure(figsize=(4, 4),dpi=100)
+
+    x = np.arange(-100, 100, 0.1)
+    y = f(x)
+
+    plot1 = fig.add_subplot(111)
+
+    plot1.plot(x, y)
+
+    plot1.axhline(y=0, color='k')
+
+    canvas = FigureCanvasTkAgg(fig, master=root)
+
+    canvas.draw()
+
+    canvas.get_tk_widget().grid(row=7, column=0, columnspan=3)
+
+    toolbar = NavigationToolbar2Tk(canvas,root)
+
+    toolbar.update()
+
+    canvas.get_tk_widget().grid(row=8, column=0, columnspan=3)
+
+
 
 def get_parm():
     try:
         global n
-        n = int(e.get())
+        n = e.get()
+        if n == '':
+            n = 0.00001
+        n = float(n)
     except ValueError:
         label = Label(root, text="You're supposed to enter a number, Try again")
         label.grid(row=1, column=0, columnspan=3)
         label.after(1000, lambda: label.destroy())
         return
-    if n < 2:
-        label = Label(root, text="At least two variables are required!")
-        label.grid(row=1, column=0, columnspan=3)
-        label.after(1000, lambda: label.destroy())
-        return
+
     try:
         global methodType
         methodType = (combo.get())
+        print(type(methodType))
     except ValueError:
         label = Label(root, text="Choose a method")
         label.grid(row=3, column=0, columnspan=3)
         label.after(1000, lambda: label.destroy())
         return
+    if methodType == '':
+        label = Label(root, text="Choose a method")
+        label.grid(row=3, column=0, columnspan=3)
+        label.after(1000, lambda: label.destroy())
+        return
+    ###########################################################
+    def f(x):
+        return 0.001* x**3 + 1
+    ###########################################################
+
     my_label.grid_forget()
     my_button.grid_forget()
     combo.grid_forget()
@@ -367,47 +431,64 @@ def get_parm():
     global sig_fig
     sig_fig = tk.Entry(root, width=10, borderwidth=5)
     sig_fig.grid(row=3, column=0, pady=10, sticky='nsew')
-    try:
-        if methodType == "LU-Decomposition":
-            global label_combo2, combo2, LUType
-            if combo.get() == "LU-Decomposition":
-                label_combo2 = tk.Label(root, text='Choose an LU:')
-                label_combo2.grid(row=4, column=0, pady=10, sticky='nsew')
-                combo2 = ttk.Combobox(
-                    state="readonly",
-                    values=["Doolittle", "Crout", "Cholesky"]
-                )
-                combo2.grid(row=5, column=0, pady=10, sticky='nsew')
-                global parm_button
-                parm_button = Button(root, text='Next', command=get_coeff)
-                parm_button.grid(row=6, column=0)
-        elif methodType == "Jacobi Iteration" or methodType == "Gauss-Seidel":
-            global InitialTextBox, labelInitial, Initials, N_Iterations, N_IterationsLabel, Relative_error, Relative_errorLabel
-            labelInitial = tk.Label(root, text='Choose initials separated by commas:')
-            labelInitial.grid(row=4, column=0, pady=10, sticky='nsew')
-            InitialTextBox = tk.Entry(root, width=10, borderwidth=5)
-            InitialTextBox.grid(row=5, column=0, pady=10, sticky='nsew')
 
-            N_IterationsLabel = tk.Label(root, text='Maximum number of Iterations:')
-            N_IterationsLabel.grid(row=6, column=0, pady=10, sticky='nsew')
-            N_Iterations = tk.Entry(root, width=10, borderwidth=5)
-            N_Iterations.grid(row=7, column=0, pady=10, sticky='nsew')
+    global label_input_function
+    label_input_function = tk.Label(root, text='Enter f(x)')
+    label_input_function.grid(row=4, column=0, pady=10, sticky='nsew')
+    global input_function
+    input_function = tk.Entry(root, width=10, borderwidth=5)
+    input_function.grid(row=5, column=0, pady=10, sticky='nsew')
 
-            Relative_errorLabel = tk.Label(root, text='Relative Error:')
-            Relative_errorLabel.grid(row=8, column=0, pady=10, sticky='nsew')
-            Relative_error = tk.Entry(root, width=10, borderwidth=5)
-            Relative_error.grid(row=9, column=0, pady=10, sticky='nsew')
+    plot_button = Button(master=root,
+                         command=plot,
+                         height=2,
+                         width=10,
+                         text="Plot")
+    plot_button.grid(row=6, column=0, pady=10, sticky='nsew')
 
-            parm_button = Button(root, text='Next', command=get_coeff)
-            parm_button.grid(row=10, column=0)
-        else:
-            parm_button = Button(root, text='Next', command=get_coeff)
-            parm_button.grid(row=4, column=0)
-    except ValueError:
-        label = Label(root, text="Choose an LU method")
-        label.grid(row=5, column=0, columnspan=3)
-        label.after(1000, lambda: label.destroy())
-        return
+
+
+    # try:
+    #     if methodType == "LU-Decomposition":
+    #         global label_combo2, combo2, LUType
+    #         if combo.get() == "LU-Decomposition":
+    #             label_combo2 = tk.Label(root, text='Choose an LU:')
+    #             label_combo2.grid(row=4, column=0, pady=10, sticky='nsew')
+    #             combo2 = ttk.Combobox(
+    #                 state="readonly",
+    #                 values=["Doolittle", "Crout", "Cholesky"]
+    #             )
+    #             combo2.grid(row=5, column=0, pady=10, sticky='nsew')
+    #             global parm_button
+    #             parm_button = Button(root, text='Next', command=get_coeff)
+    #             parm_button.grid(row=6, column=0)
+    #     elif methodType == "Jacobi Iteration" or methodType == "Gauss-Seidel":
+    #         global InitialTextBox, labelInitial, Initials, N_Iterations, N_IterationsLabel, Relative_error, Relative_errorLabel
+    #         labelInitial = tk.Label(root, text='Choose initials separated by commas:')
+    #         labelInitial.grid(row=4, column=0, pady=10, sticky='nsew')
+    #         InitialTextBox = tk.Entry(root, width=10, borderwidth=5)
+    #         InitialTextBox.grid(row=5, column=0, pady=10, sticky='nsew')
+    #
+    #         N_IterationsLabel = tk.Label(root, text='Maximum number of Iterations:')
+    #         N_IterationsLabel.grid(row=6, column=0, pady=10, sticky='nsew')
+    #         N_Iterations = tk.Entry(root, width=10, borderwidth=5)
+    #         N_Iterations.grid(row=7, column=0, pady=10, sticky='nsew')
+    #
+    #         Relative_errorLabel = tk.Label(root, text='Relative Error:')
+    #         Relative_errorLabel.grid(row=8, column=0, pady=10, sticky='nsew')
+    #         Relative_error = tk.Entry(root, width=10, borderwidth=5)
+    #         Relative_error.grid(row=9, column=0, pady=10, sticky='nsew')
+    #
+    #         parm_button = Button(root, text='Next', command=get_coeff)
+    #         parm_button.grid(row=10, column=0)
+    #     else:
+    #         parm_button = Button(root, text='Next', command=get_coeff)
+    #         parm_button.grid(row=4, column=0)
+    # except ValueError:
+    #     label = Label(root, text="Choose an LU method")
+    #     label.grid(row=5, column=0, columnspan=3)
+    #     label.after(1000, lambda: label.destroy())
+    #     return
 
 
 root = tk.Tk()
@@ -425,7 +506,7 @@ root.rowconfigure(1, weight=1)
 root.rowconfigure(2, weight=1)
 root.rowconfigure(3, weight=1)
 root.rowconfigure(4, weight=1)
-my_label = tk.Label(root, text='How many variables?')
+my_label = tk.Label(root, text='EPS')
 my_label.grid(row=0, column=0, pady=10, sticky='nsew')
 e = tk.Entry(root, width=10, borderwidth=5)
 e.grid(row=1, column=0, pady=10, sticky='nsew')
@@ -433,7 +514,7 @@ label_combo = tk.Label(root, text='Choose a method:')
 label_combo.grid(row=2, column=0, pady=10, sticky='nsew')
 combo = ttk.Combobox(
     state="readonly",
-    values=["Gauss Elimination", "Gauss-Jordan", "LU-Decomposition", "Jacobi Iteration", "Gauss-Seidel"]
+    values=["Bisection", "False-Position", "Fixed point", "Newton-Raphson(Original)", "Newton-Raphson(Modified-1)", "Newton-Raphson(Modified-2)", "Secant Method"]
 )
 combo.grid(row=3, column=0, pady=10, sticky='nsew')
 
