@@ -187,10 +187,16 @@ def get_solution():
                     return """ + func_f
     exec(code, globals())
 
+    if methodType == "Newton-Raphson(Original)":
+        x = symbols('x')
+        fx = f(x)
+        s,ea,i = modified1_newton_raphson_solver(fx, l, eps, maxI, sig, 1)
+        return s, i
+
     if methodType == "Newton-Raphson(Modified-1)":
         x = symbols('x')
         fx = f(x)
-        s,ea,i = modified1_newton_raphson_solver(fx, l, eps, maxI, sig, 2)
+        s,ea,i = modified1_newton_raphson_solver(fx, l, eps, maxI, sig, u)
         return s, i
 
 

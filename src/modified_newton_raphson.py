@@ -40,6 +40,8 @@ def modified1_newton_raphson_solver(f, x0, es, iter_max, n_sig, m):
     if i == iter_max and ea > es:
         return "Solution is not found upon the given tolerance.", ea, i
     print("ea final = ", ea)
+    if xip1 - int(xip1) < (10**(-n_sig)):
+        xip1 = int(xip1)
     return xip1, ea, i
 
 
@@ -62,14 +64,14 @@ def modified2_newton_raphson_solver(f, x0, es, iter_max, n_sig):
     if i == iter_max and ea > es:
         return "Solution is not found upon the given tolerance.", ea, i
     print("ea final = ", ea)
-    if xip1 - int(xip1) < 10E-9:
+    if xip1 - int(xip1) < (10**(-n_sig)):
         xip1 = int(xip1)
     return xip1, ea, i
 
 
 x = symbols('x')
-fx = x ** 3 - 5 * (x**2) + 7 * x - 3
-print("Modified 1")
-print(modified1_newton_raphson_solver(fx, 0, 0.00001, 50, 5, 2))
-print("\nModified 2")
-print(modified2_newton_raphson_solver(fx, 0, 0.00001, 50, 5))
+# fx = x ** 3 - 5 * (x**2) + 7 * x - 3
+# print("Modified 1")
+# print(modified1_newton_raphson_solver(fx, 0, 0.00001, 50, 5, 2))
+# print("\nModified 2")
+# print(modified2_newton_raphson_solver(fx, 0, 0.00001, 50, 5))
