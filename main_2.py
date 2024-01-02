@@ -20,6 +20,40 @@ import math
 import sys
 from sympy import *
 
+def rnd(x):
+    if isinstance(x, str):
+        return x
+    if isinstance(x, list):
+        result = []
+        for i in x:
+            result.append(rnd(i, sig))
+        return result
+    if abs(x) < 1*10**(-sig+1):
+        return 0
+
+    return round(x, -int(math.floor(math.log10(abs(x)))) + (sig - 1))
+
+def secant(Xi0, Xi1, es, max_iter):
+    ea = sys.maxsize
+    i = 0
+    print("i\tXi-1\t Xi \tXi+1\tEa")
+    while i <= max_iter-1 and ea > es:
+        Xi2 = Xi1 - rnd(f(Xi1))*(Xi1 - Xi0) / (rnd(f(Xi1)) - rnd(f(Xi0)))
+        Xi1 = rnd(Xi1)
+        Xi2 = rnd(Xi2)
+        ea = abs((Xi2-Xi1)/Xi2)
+        # ea = rnd(ea)
+        print(i,"\t",Xi0,"\t",Xi1,"\t",Xi2,"\t",ea)
+        Xi0 = Xi1
+        Xi1 = Xi2
+        i += 1
+    if ea <= es:
+        print("Root found at X=", Xi1, "with tolerance", ea)
+        print("Number of iterations needed: ", i)
+        return Xi1, i
+        # print("Runtime: ")
+    elif ea > es and i >= max_iter:
+        return "Maximum Iterations reached. No root found under given tolerance", max_iter
 
 
 def bsct(u, l, tol, maxI, sig):
@@ -214,6 +248,8 @@ def get_solution():
         g_function_str = func_g
         g_function = lambda x: eval(g_function_str, {'x': x, 'e': math.e})
         return Fixed_Point(l, eps, maxI, g_function, sig)
+    if methodType == "Secant Method":
+        return secant(l, u, eps, maxI)
 
     return 1.5
 
