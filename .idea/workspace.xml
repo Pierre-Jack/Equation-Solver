@@ -5,10 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="62c3f052-4c88-4b42-a5bd-3d5e6444b98e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/bisc_and_regulafalsi.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main_2.py" beforeDir="false" afterPath="$PROJECT_DIR$/main_2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/modified_newton_raphson.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/modified_newton_raphson.py" afterDir="false" />
     </list>
     <list id="111bef21-eab5-4c0c-a3bf-bfceeb8f37cd" name="Changes by ADMIN" comment="" />
     <list id="1a8a8609-038f-4337-a0c8-836e7bfb6201" name="Changes by Karene" comment="" />
@@ -146,7 +143,7 @@
       <workItem from="1704060754820" duration="3584000" />
       <workItem from="1704106844495" duration="4122000" />
       <workItem from="1704142180804" duration="1349000" />
-      <workItem from="1704182649995" duration="2566000" />
+      <workItem from="1704182649995" duration="2994000" />
     </task>
     <servers />
   </component>
