@@ -215,11 +215,14 @@ def get_solution():
     except:
         pass
 
-
-
-    code = """def f(x):
-                    return """ + func_f
-    exec(code, globals())
+    if methodType == "Newton-Raphson(Original)" or methodType == "Newton-Raphson(Modified-1)" or methodType == "Newton-Raphson(Modified-2)":
+        code = """def f(x):
+                        return """ + func_f.replace("e", "(math.e)")
+        exec(code, globals())
+    else:
+        code = """def f(x):
+                        return """ + func_f.replace("e", "(math.e)").replace("sin", "math.sin").replace("cos","math.cos")
+        exec(code, globals())
 
     if methodType == "Newton-Raphson(Original)":
         x = symbols('x')
@@ -246,7 +249,7 @@ def get_solution():
         return rf(u, l, eps, maxI, sig)
     if methodType == "Fixed point":
         g_function_str = func_g
-        g_function = lambda x: eval(g_function_str, {'x': x, 'e': math.e})
+        g_function = lambda x: eval(g_function_str, {'x': x, 'e': math.e, 'sin': math.sin, 'cos': math.cos})
         return Fixed_Point(l, eps, maxI, g_function, sig)
     if methodType == "Secant Method":
         return secant(l, u, eps, maxI)
@@ -309,14 +312,18 @@ def plot():
     global func
     func = input_function.get()
     code = """def f(x):
-                    return """ + func
+                    return """ + func.replace("e", "(math.e)")
     exec(code, globals())
-
+    global func_p
+    func_p = func
+    code = """def p(x):
+                        return """ + func_p.replace("e", "(math.e)").replace("sin", "np.sin").replace("cos", "np.cos")
+    exec(code, globals())
 
     fig = Figure(figsize=(4, 4),dpi=100)
 
-    x = np.arange(-100, 100, 0.1)
-    y = f(x)
+    x = np.arange(-10, 10, 0.1)
+    y = p(x)
 
     plot1 = fig.add_subplot(111)
 
@@ -355,7 +362,7 @@ def get_parm():
         global sig
         sig = sig_fig.get()
         if sig == '':
-            sig = 5
+            sig = 10
         sig = int(sig)
     except ValueError:
         label = Label(root, text="You're supposed to enter an integer, Try again")
