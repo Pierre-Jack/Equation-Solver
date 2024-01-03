@@ -107,6 +107,8 @@ def Fixed_Point(x0, eps, numOfIterations, g_function, significant_figures):
     while (k<=numOfIterations) :
         x_old = x_new
         x_new = g_function(x_old)
+        if x_new > sys.maxsize:
+            return "Overflow occurred!", k
         x_new  = round(x_new, -int(math.floor(math.log10(abs(x_new)))) + (significant_figures - 1))
         print(x_new)
         if x_new == 0:
