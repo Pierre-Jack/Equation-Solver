@@ -36,11 +36,15 @@ def modified1_newton_raphson_solver(f, x0, es, iter_max, n_sig, m):
         if not (xip1 == 0):
             ea = round(abs(((xip1 - xi) / xip1) * 100), 5)
             print("ea of i =", i, "is equal ", ea)
+        if abs(f.evalf(subs={'x': xip1})) < 1e-9:
+            if abs(xip1 - int(xip1)) < 10**(-n_sig):
+                xip1 = int(xip1)
+            return xip1, ea, i
         i += 1
     if i == iter_max and ea > es:
         return "Solution is not found upon the given tolerance.", ea, i
     print("ea final = ", ea)
-    if xip1 - int(xip1) < (10**(-n_sig)):
+    if abs(xip1 - int(xip1)) < 10**(-n_sig):
         xip1 = int(xip1)
     return xip1, ea, i
 
@@ -60,18 +64,22 @@ def modified2_newton_raphson_solver(f, x0, es, iter_max, n_sig):
         if not (xip1 == 0):
             ea = round(abs(((xip1 - xi) / xip1) * 100), 5)
             print("ea of i =", i, "is equal ", ea)
+        if abs(f.evalf(subs={'x': xip1})) < 1e-9:
+            if abs(xip1 - int(xip1)) < 10**(-n_sig):
+                xip1 = int(xip1)
+            return xip1, ea, i
         i += 1
     if i == iter_max and ea > es:
         return "Solution is not found upon the given tolerance.", ea, i
     print("ea final = ", ea)
-    if xip1 - int(xip1) < (10**(-n_sig)):
+    if abs(xip1 - int(xip1)) < 10 ** (-n_sig):
         xip1 = int(xip1)
     return xip1, ea, i
 
 
 x = symbols('x')
-# fx = x ** 3 - 5 * (x**2) + 7 * x - 3
+# fx = x**5 - 11*x**4 + 46*x**3 - 90*x**2 + 81*x - 27
 # print("Modified 1")
-# print(modified1_newton_raphson_solver(fx, 0, 0.00001, 50, 5, 2))
+# print(modified1_newton_raphson_solver(fx, 1.3, 0.00001, 50, 5, 2))
 # print("\nModified 2")
 # print(modified2_newton_raphson_solver(fx, 0, 0.00001, 50, 5))

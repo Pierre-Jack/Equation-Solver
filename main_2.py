@@ -145,7 +145,6 @@ def g2(f, xi):
 
 
 def modified1_newton_raphson_solver(f, x0, es, iter_max, n_sig, m):
-    x = symbols('x')
     xip1 = x0
     i = 0
     ea = sys.maxsize
@@ -160,10 +159,17 @@ def modified1_newton_raphson_solver(f, x0, es, iter_max, n_sig, m):
         if not (xip1 == 0):
             ea = round(abs(((xip1 - xi) / xip1) * 100), 5)
             print("ea of i =", i, "is equal ", ea)
+        if abs(f.evalf(subs={'x': xip1})) < 1e-9:
+            if abs(xip1 - int(xip1)) < 10**(-n_sig):
+                xip1 = int(xip1)
+                print("hihidhakcnxjoas")
+            return xip1, ea, i
         i += 1
     if i == iter_max and ea > es:
         return "Solution is not found upon the given tolerance.", ea, i
     print("ea final = ", ea)
+    if abs(xip1 - int(xip1)) < 10**(-n_sig):
+        xip1 = int(xip1)
     return xip1, ea, i
 
 
