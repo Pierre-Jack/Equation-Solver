@@ -63,6 +63,10 @@ def bsct(u, l, tol, maxI, sig):
         l=tmp
     prev = 0
     r = (l+u)/2
+    if abs(f(r)-0)<= eps:
+        return r, 1
+    if f(l)*f(u) > 0:
+        return "invalid interval", 1
     count = 0
     while(abs(r-prev) > tol or count==0):
         if f(r)*f(l) < 0:
@@ -85,6 +89,10 @@ def rf(u, l, tol, maxI, sig):
         l=tmp
     prev = 0
     r = (l*f(u) - u*f(l))/(f(u)-f(l))
+    if abs(f(r)-0)<= eps:
+        return r, 1
+    if f(l)*f(u) > 0:
+        return "invalid interval", 1
     count = 0
     while(abs(r-prev) > tol or count==0):
         if f(r)*f(l) < 0:
