@@ -38,10 +38,17 @@ def secant(Xi0, Xi1, es, max_iter):
     i = 0
     print("i\tXi-1\t Xi \tXi+1\tEa")
     while i <= max_iter-1 and ea > es:
-        Xi2 = Xi1 - rnd(f(Xi1))*(Xi1 - Xi0) / (rnd(f(Xi1)) - rnd(f(Xi0)))
+        try:
+            Xi2 = Xi1 - rnd(f(Xi1))*(Xi1 - Xi0) / (rnd(f(Xi1)) - rnd(f(Xi0)))
+        except ZeroDivisionError:
+            return "Method will diverge due to subtractive cancellation in the denominator", i+1
         Xi1 = rnd(Xi1)
         Xi2 = rnd(Xi2)
-        ea = abs((Xi2-Xi1)/Xi2)
+        try:
+            ea = abs((Xi2-Xi1)/Xi2)
+        except ZeroDivisionError:
+            return "Method will diverge due to subtractive cancellation in the denominator", i+1
+        # ea = abs((Xi2-Xi1)/Xi2)
         # ea = rnd(ea)
         print(i,"\t",Xi0,"\t",Xi1,"\t",Xi2,"\t",ea)
         Xi0 = Xi1
